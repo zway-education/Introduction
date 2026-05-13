@@ -367,20 +367,7 @@ html, body { background: #e8e2d2; }
 }
 .slide.blank { display: none !important; }
 
-/* 頁碼徽章右上角 */
-.slide::after {
-  content: attr(data-page);
-  position: absolute;
-  top: 14px; right: 18px;
-  font-size: 10px;
-  letter-spacing: .15em;
-  color: var(--ink-mute);
-  font-weight: 700;
-  background: rgba(255,255,255,.85);
-  padding: 3px 9px;
-  border-radius: 999px;
-  z-index: 10;
-}
+/* 頁碼徽章已移除 */
 
 /* GitHub 用 floating brand mark */
 .gh-credit {
@@ -424,6 +411,154 @@ html, body { background: #e8e2d2; }
 }
 
 * { animation: none !important; }
+
+/* === 互動：滾動觸發進場動畫 === */
+html { scroll-behavior: smooth; }
+.slide {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity .7s cubic-bezier(.2,.7,.3,1.05), transform .7s cubic-bezier(.2,.7,.3,1.05), box-shadow .3s ease;
+}
+.slide.in-view { opacity: 1; transform: translateY(0); }
+.slide:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 56px rgba(0,0,0,.22), 0 6px 18px rgba(0,0,0,.12) !important;
+}
+
+/* === 右側浮動導航 dock === */
+.side-nav {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 12px 8px;
+  background: rgba(255,255,255,.72);
+  backdrop-filter: blur(14px);
+  border-radius: 999px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.14), 0 0 0 1px rgba(31,77,58,.08);
+}
+.nav-pill {
+  background: rgba(31,77,58,.08);
+  color: var(--c-pine);
+  border: none;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: .15em;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: all .25s cubic-bezier(.2,.7,.3,1.1);
+  display: inline-flex; align-items: center;
+  justify-content: center;
+}
+.nav-pill:hover {
+  background: var(--c-warm);
+  color: #fff;
+  transform: translateX(-4px) scale(1.06);
+}
+.nav-pill.active {
+  background: var(--c-pine);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(31,77,58,.32);
+}
+.nav-pill .np-num { font-family:"Times New Roman",serif; font-style:italic; font-size: 12px; }
+.nav-pill .np-label {
+  display: none;
+  font-size: 11px;
+  letter-spacing: .15em;
+  font-weight: 700;
+}
+.nav-pill:hover .np-label,
+.nav-pill.active .np-label {
+  display: inline;
+}
+
+/* === 進度條（頂部） === */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--c-pine), var(--c-warm), var(--c-gold));
+  z-index: 999;
+  transition: width .15s ease;
+  box-shadow: 0 1px 8px rgba(31,77,58,.25);
+}
+
+/* === LINE 浮動按鈕脈動 === */
+.gh-credit { animation: gentlePulse 2.6s ease-in-out infinite; }
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 4px 16px rgba(0,0,0,.25); }
+  50% { transform: scale(1.04); box-shadow: 0 6px 22px rgba(31,77,58,.4); }
+}
+
+/* === 頁面內元素：滾動進場時的「子元素」階梯式淡入 === */
+.slide.in-view .scene,
+.slide.in-view .scene-mini,
+.slide.in-view .gc-row,
+.slide.in-view .sys-card,
+.slide.in-view .ab-item,
+.slide.in-view .q-item,
+.slide.in-view .mod {
+  animation: itemRise .5s ease-out both;
+}
+.slide.in-view .scene:nth-child(1), .slide.in-view .scene-mini:nth-child(1), .slide.in-view .ab-item:nth-child(1), .slide.in-view .q-item:nth-child(1) { animation-delay: .08s }
+.slide.in-view .scene:nth-child(2), .slide.in-view .scene-mini:nth-child(2), .slide.in-view .ab-item:nth-child(2), .slide.in-view .q-item:nth-child(2) { animation-delay: .18s }
+.slide.in-view .scene:nth-child(3), .slide.in-view .scene-mini:nth-child(3), .slide.in-view .ab-item:nth-child(3), .slide.in-view .q-item:nth-child(3) { animation-delay: .28s }
+.slide.in-view .scene:nth-child(4), .slide.in-view .scene-mini:nth-child(4), .slide.in-view .q-item:nth-child(4) { animation-delay: .38s }
+
+@keyframes itemRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === SEL chip pulse on hover === */
+.sel-chip { transition: transform .2s ease, box-shadow .2s ease; cursor: default; }
+.sel-chip:hover { transform: translateY(-1px) scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,.12); }
+
+/* === gc-row hover 強化 === */
+.gc-row { transition: transform .25s ease, box-shadow .25s ease; }
+.gc-row:hover { transform: translateX(4px); box-shadow: 0 8px 24px rgba(31,77,58,.12); }
+
+/* === sys-card hover === */
+.sys-card { transition: transform .25s ease, box-shadow .25s ease; }
+.sys-card:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,.15); }
+
+/* 列印時隱藏導航與動畫 */
+@media print {
+  .side-nav, .scroll-progress, .gh-credit { display: none !important; }
+  .slide { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .slide.in-view * { animation: none !important; }
+}
+
+/* 手機適配：dock 縮小 + 移到底部 */
+@media (max-width: 720px) {
+  .side-nav {
+    right: 50%;
+    top: auto;
+    bottom: 14px;
+    transform: translateX(50%);
+    flex-direction: row;
+    padding: 7px 10px;
+    gap: 4px;
+    border-radius: 999px;
+    overflow-x: auto;
+    max-width: 92vw;
+  }
+  .nav-pill { padding: 6px 12px; font-size: 11px; letter-spacing: .08em; }
+  .nav-pill.active { padding: 6px 14px; }
+  .nav-pill:hover { transform: scale(1.04); }
+  .nav-pill .np-label { display: none !important; }
+  .gh-credit { bottom: auto; top: 64px; }
+}
+
 </style>
 <!-- GitHub Pages OG / Twitter meta -->
 <meta name="description" content="覺知 SEL ・ 陪孩子裝備好非認知能力 ・ 培養覺知素養的社會情緒學習課程">
@@ -437,12 +572,25 @@ html, body { background: #e8e2d2; }
 </head>
 <body>
 
+<nav class="side-nav" aria-label="頁面導航">
+  <button class="nav-pill" data-target="#p1" aria-label="跳至 覺察己心 ・ 知行合一">覺察己心 ・ 知行合一</button>
+  <button class="nav-pill" data-target="#p2" aria-label="跳至 非認知能力">非認知能力</button>
+  <button class="nav-pill" data-target="#p3" aria-label="跳至 什麼是「覺知」">什麼是「覺知」</button>
+  <button class="nav-pill" data-target="#p4" aria-label="跳至 四大系統">四大系統</button>
+  <button class="nav-pill" data-target="#p5" aria-label="跳至 啟 蒙">啟 蒙</button>
+  <button class="nav-pill" data-target="#p6" aria-label="跳至 開 智">開 智</button>
+  <button class="nav-pill" data-target="#p7" aria-label="跳至 智 優">智 優</button>
+  <button class="nav-pill" data-target="#p8" aria-label="跳至 課 堂">課 堂</button>
+  <button class="nav-pill" data-target="#p9" aria-label="跳至 改 變">改 變</button>
+  <button class="nav-pill" data-target="#p10" aria-label="跳至 下一步">下一步</button>
+</nav>
+
 <div class="deck">
 <div class="book">
-<article class="slide show" data-page="P.01 開場">
+<article id="p1" class="slide show" data-page="P.01 開場">
     <div class="page-body">
       <span class="page-num">▸ 給 您</span>
-      <span class="page-title">P.01</span>
+      
       <div class="content">
         <div class="brand-mark">覺察己心 ・ 知行合一</div>
         <h1 class="big">陪孩子<br>裝備好<br><span class="ac">非認知能力</span>。</h1>
@@ -451,10 +599,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide" data-page="P.02 共鳴">
+<article id="p2" class="slide" data-page="P.02 共鳴">
     <div class="page-body">
       <span class="page-num">▸ 共 鳴</span>
-      <span class="page-title">P.02 ・ 您是否也⋯</span>
+      <span class="page-title">您是否也⋯</span>
       <div class="content">
         <h1 class="big">有時候，<br>一場親子衝突<br>不是從孩子<br>不聽話開始——</h1>
         <p class="lede">而是從我們心裡那句<br><b>「我又搞砸了」</b>開始。</p>
@@ -478,10 +626,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide" data-page="P.03 黃金圈">
+<article id="p3" class="slide" data-page="P.03 黃金圈">
     <div class="page-body">
       <span class="page-num">▸ 核 心</span>
-      <span class="page-title">P.03 ・ 什麼是「覺知」</span>
+      <span class="page-title">什麼是「覺知」</span>
       <div class="content">
         <h2 class="med">什麼是「<span class="ac">覺知</span>」？<br>用三個問題，慢慢進入。</h2>
 
@@ -521,10 +669,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide" data-page="P.04 四大系統">
+<article id="p4" class="slide" data-page="P.04 四大系統">
     <div class="page-body">
       <span class="page-num">▸ 系 統</span>
-      <span class="page-title">P.04 ・ 覺知素養教育系統</span>
+      <span class="page-title">覺知素養教育系統</span>
       <div class="content">
         <h2 class="med">教育沒有系統，<br><span class="ac">再好的理念都走不遠</span>。</h2>
         <p class="lede" style="font-size:14.5px">成長不是一次性的活動，而是<b>一段被陪伴的歷程</b>。<br>短期成績不是目標——孩子<b>未來的方向感</b>，才是我們所在意的。</p>
@@ -565,10 +713,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide cls-meng" data-page="P.05 啟蒙班">
+<article id="p5" class="slide cls-meng" data-page="P.05 啟蒙班">
     <div class="page-body">
       <span class="page-num">▸ 班 級</span>
-      <span class="page-title">P.05 ・ 啟 蒙 班</span>
+      <span class="page-title">啟 蒙 班</span>
       <div class="content">
         <div class="class-mark">
           <span class="class-pill">啟 蒙 班</span>
@@ -616,10 +764,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide cls-zhi" data-page="P.06 開智班">
+<article id="p6" class="slide cls-zhi" data-page="P.06 開智班">
     <div class="page-body">
       <span class="page-num">▸ 班 級</span>
-      <span class="page-title">P.06 ・ 開 智 班</span>
+      <span class="page-title">開 智 班</span>
       <div class="content">
         <div class="class-mark">
           <span class="class-pill">開 智 班</span>
@@ -667,10 +815,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide cls-you" data-page="P.07 智優班">
+<article id="p7" class="slide cls-you" data-page="P.07 智優班">
     <div class="page-body">
       <span class="page-num">▸ 班 級</span>
-      <span class="page-title">P.07 ・ 智 優 班</span>
+      <span class="page-title">智 優 班</span>
       <div class="content">
         <div class="class-mark">
           <span class="class-pill">智 優 班</span>
@@ -718,10 +866,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide" data-page="P.08 課堂實況">
+<article id="p8" class="slide" data-page="P.08 課堂實況">
     <div class="page-body">
       <span class="page-num">▸ 現 場</span>
-      <span class="page-title">P.08 ・ 一堂課的樣子</span>
+      <span class="page-title">一堂課的樣子</span>
       <div class="content">
         <h2 class="med">那麼，孩子在課堂上<br><span class="ac">到底在做什麼</span>？</h2>
         <p class="lede" style="font-size:14px">不是聊天、不是聽道理——是用<b>五大教學模組</b>，把覺知素養練成生活裡的能力。</p>
@@ -748,10 +896,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide" data-page="P.09 改變">
+<article id="p9" class="slide" data-page="P.09 改變">
     <div class="page-body">
       <span class="page-num">▸ 改 變</span>
-      <span class="page-title">P.09 ・ 您會在家慢慢聽到</span>
+      <span class="page-title">您會在家慢慢聽到</span>
       <div class="content">
         <h2 class="med">您會在家裡<br>慢慢<span class="ac">聽到</span>——</h2>
         <p class="lede" style="font-size:14px;font-style:italic;color:var(--ink-soft);margin-bottom:8px">
@@ -784,10 +932,10 @@ html, body { background: #e8e2d2; }
       </div>
     </div>
   </article>
-<article class="slide" data-page="P.10 下一步">
+<article id="p10" class="slide" data-page="P.10 下一步">
     <div class="page-body">
       <span class="page-num">▸ 下 一 步</span>
-      <span class="page-title">P.10 ・ 接 下 來</span>
+      <span class="page-title">接 下 來</span>
       <div class="content">
         <h2 class="med">那麼，<br>下一步<span class="ac">怎麼開始</span>？</h2>
         <p class="lede" style="font-size:14.5px">
@@ -838,6 +986,62 @@ html, body { background: #e8e2d2; }
 <a class="gh-credit" href="https://line.me/R/ti/p/@931irimh" target="_blank" rel="noopener">
   💬 覺知 SEL ・ 加入官方 LINE
 </a>
+
+
+<script>
+(function(){
+  // 進度條
+  const progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  document.body.appendChild(progress);
+  function updateProgress(){
+    const h = document.documentElement;
+    const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    progress.style.width = (scrolled * 100) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  // 區塊跳轉
+  document.querySelectorAll('.nav-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.querySelector(btn.dataset.target);
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // 滾動進場 + 高亮當前區塊
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const pills = Array.from(document.querySelectorAll('.nav-pill'));
+
+  const reveal = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('in-view');
+    });
+  }, {threshold: 0.12, rootMargin: '0px 0px -80px 0px'});
+  slides.forEach(s => reveal.observe(s));
+
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio > 0.4) {
+        const idx = slides.indexOf(e.target);
+        pills.forEach((p, i) => p.classList.toggle('active', i === idx));
+      }
+    });
+  }, {threshold: [0.4, 0.6, 0.8]});
+  slides.forEach(s => spy.observe(s));
+
+  // 鍵盤 ← → 跳上下頁
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    const active = pills.findIndex(p => p.classList.contains('active'));
+    const next = Math.max(0, Math.min(slides.length-1, active + (e.key==='ArrowRight' ? 1 : -1)));
+    slides[next].scrollIntoView({behavior:'smooth', block:'start'});
+  });
+})();
+</script>
 
 </body>
 </html>
