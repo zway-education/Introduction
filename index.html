@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>覺知 SEL ｜ 家長介紹本</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f4d3a">
+<style>
+
+:root{
+  --ink:#1f2a23;--ink-2:#3a4a3e;--ink-soft:#5a6862;--ink-mute:#8a958e;
+  --paper:#fefcf7;--paper-2:#f5f1e6;--paper-3:#ffffff;
+  --c-pine:#1f4d3a;--c-pine-soft:#cfddd5;--c-deep:#2d6b4a;
+  --c-main:#5fa775;--c-leaf:#88c098;
+  --c-warm:#e07a45;--c-warm-light:#fad6c1;
+  --c-gold:#d9a83a;--c-gold-light:#f5e5b5;
+  --c-sky:#7ec0d8;--c-sky-light:#d5ecf3;
+  --line:#e0dcc8;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:#e8e2d2;color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.85;-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* ===== 工具列 ===== */
+.toolbar{position:sticky;top:0;background:rgba(31,77,58,.97);backdrop-filter:blur(10px);padding:13px 22px;display:flex;gap:8px;align-items:center;z-index:50;border-bottom:1px solid rgba(0,0,0,.08);color:#f5efe0;box-shadow:0 4px 18px rgba(0,0,0,.12)}
+.toolbar .brand{font-weight:800;color:var(--c-gold);letter-spacing:.1em;font-size:13.5px;margin-right:auto}
+.toolbar .brand small{color:rgba(245,239,224,.6);font-weight:400;margin-left:10px;letter-spacing:.05em}
+.tbtn{background:rgba(255,255,255,.13);color:#f5efe0;border:none;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-family:inherit;font-weight:700;letter-spacing:.05em;transition:all .15s}
+.tbtn:hover{background:rgba(255,255,255,.22)}
+.tbtn:disabled{opacity:.3;cursor:not-allowed}
+.tbtn.go{background:var(--c-gold);color:var(--c-pine)}
+.tbtn.go:hover{background:#e8b94a}
+.tbtn.ttoggle{background:var(--c-warm)}
+.tbtn.ttoggle:hover{background:#c66838}
+.tbtn.tprint{background:rgba(255,255,255,.18);padding:9px 14px}
+.tbtn.tfs{background:rgba(255,255,255,.18);font-weight:800}
+.tbtn.tfs.active{background:#fff;color:var(--c-pine)}
+
+/* 全螢幕模式：放大書本、精簡 UI */
+:fullscreen body, body:fullscreen{background:#1a2620}
+:fullscreen .toolbar, body:fullscreen .toolbar{
+  background:rgba(0,0,0,.65);backdrop-filter:blur(14px);
+  padding:10px 18px;
+}
+:fullscreen .deck, body:fullscreen .deck{margin:20px auto 40px;padding:0 10px}
+:fullscreen .book, body:fullscreen .book{
+  transform:scale(1);
+  box-shadow:0 40px 100px rgba(0,0,0,.55), 0 14px 36px rgba(0,0,0,.4);
+}
+/* 螢幕較小時的 fallback 縮放 */
+@media (max-width:1700px){
+  :fullscreen .book, body:fullscreen .book{transform:scale(.95)}
+}
+@media (max-width:1500px){
+  :fullscreen .book, body:fullscreen .book{transform:scale(.82)}
+}
+@media (max-width:1300px){
+  :fullscreen .book, body:fullscreen .book{transform:scale(.68)}
+}
+.page-info{font-size:13px;color:#f5efe0;letter-spacing:.1em;margin:0 12px;font-weight:700}
+
+/* ===== A4 雙頁攤開「書本」 ===== */
+.deck{margin:30px auto 100px;padding:0 20px;display:flex;justify-content:center}
+.book{
+  display:flex;background:transparent;
+  box-shadow:0 32px 80px rgba(0,0,0,.28), 0 10px 28px rgba(0,0,0,.15);
+  transform-origin:top center;
+  position:relative;
+}
+/* 書脊（中縫） */
+.book::after{
+  content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.18),rgba(0,0,0,.10));
+  transform:translateX(-50%);pointer-events:none;z-index:5;
+}
+
+.slide{
+  display:none;width:210mm;min-height:297mm;
+  background:var(--paper);border-radius:0;overflow:hidden;
+  box-shadow:none;margin:0;position:relative;
+}
+
+/* 雙頁攤開：左頁 + 右頁 */
+.slide.show-left{
+  display:block;
+  box-shadow:inset -10px 0 22px -10px rgba(0,0,0,.20);
+  animation:bookOpenR .42s cubic-bezier(.2,.7,.3,1.1);
+}
+.slide.show-right{
+  display:block;
+  box-shadow:inset 10px 0 22px -10px rgba(0,0,0,.20);
+  animation:bookOpenL .42s cubic-bezier(.2,.7,.3,1.1);
+}
+.slide.blank{background:repeating-linear-gradient(45deg,#f8f4e8,#f8f4e8 10px,#f1ece0 10px,#f1ece0 20px)}
+@keyframes bookOpenR{
+  from{opacity:0;transform:perspective(1600px) rotateY(18deg);transform-origin:right center}
+  to  {opacity:1;transform:none}
+}
+@keyframes bookOpenL{
+  from{opacity:0;transform:perspective(1600px) rotateY(-18deg);transform-origin:left center}
+  to  {opacity:1;transform:none}
+}
+
+/* 單頁瀏覽（手機等小螢幕自動切換） */
+body.single-mode .slide.show{display:block;animation:fadein .35s ease;width:210mm;box-shadow:0 12px 36px rgba(0,0,0,.18)}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+body.single-mode .book{box-shadow:none}
+body.single-mode .book::after{display:none}
+
+/* 全覽模式：縱向列出全部 */
+body.all-mode .book{display:block;box-shadow:none;transform:none !important}
+body.all-mode .book::after{display:none}
+body.all-mode .slide{display:block !important;width:210mm;margin:0 auto 24px;box-shadow:0 12px 36px rgba(0,0,0,.18);animation:none !important}
+body.all-mode .slide.blank{display:none !important}
+
+/* 響應式縮放（雙頁 ≒ 420mm ≒ 1590px） */
+@media (max-width:1700px){.book{transform:scale(.86)}}
+@media (max-width:1500px){.book{transform:scale(.74)}}
+@media (max-width:1300px){.book{transform:scale(.62)}}
+@media (max-width:1100px){.book{transform:scale(.52)}}
+@media (max-width:960px){
+  .book{transform:scale(.44)}
+}
+@media (max-width:780px){
+  .book{transform:none;flex-direction:column;box-shadow:none}
+  .book::after{display:none}
+  .slide.show-left,.slide.show-right,body.single-mode .slide.show{
+    width:100%;max-width:96vw;min-height:auto;
+    box-shadow:0 10px 28px rgba(0,0,0,.15) !important;border-radius:8px;
+    margin-bottom:18px;
+  }
+  body.all-mode .slide{width:100%;max-width:96vw}
+}
+
+.page-body{padding:60px 52px 50px;position:relative;background:linear-gradient(180deg,var(--paper-2) 0%,var(--paper) 50%);min-height:297mm;height:100%}
+.page-body::before{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:var(--c-pine-soft);opacity:.4}
+.page-body::after{content:"";position:absolute;left:-40px;bottom:-40px;width:140px;height:140px;border-radius:50%;background:var(--c-gold-light);opacity:.35}
+.page-body .content{position:relative;z-index:1}
+
+.page-num{position:absolute;top:22px;left:48px;font-size:11px;letter-spacing:.35em;color:var(--c-warm);font-weight:800;z-index:2}
+.page-title{position:absolute;top:22px;right:48px;font-size:11px;letter-spacing:.25em;color:var(--ink-mute);font-weight:700;z-index:2}
+
+.brand-mark{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.3em;color:var(--c-pine);background:#fff;padding:7px 16px;border-radius:999px;font-weight:800;margin-bottom:20px;box-shadow:0 2px 12px rgba(31,77,58,.1)}
+.brand-mark::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c-warm)}
+
+h1.big{font-size:38px;font-weight:800;line-height:1.4;color:var(--c-pine);margin-bottom:18px;letter-spacing:.01em}
+h1.big .hl{background:linear-gradient(180deg,transparent 65%,var(--c-gold-light) 65%);padding:0 4px}
+h2.med{font-size:26px;font-weight:800;line-height:1.5;color:var(--c-pine);margin-bottom:18px}
+h2.med .ac{color:var(--c-warm)}
+p.lede{font-size:16px;color:var(--ink-soft);line-height:1.95}
+p.lede b{color:var(--c-pine);font-weight:700}
+
+/* P2 場景 */
+.scenes-mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.scene-mini{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:13.5px;color:var(--ink);line-height:1.7;display:grid;grid-template-columns:26px 1fr;gap:10px}
+.scene-mini .n{color:var(--c-pine);font-family:"Times New Roman",serif;font-style:italic;font-weight:700;font-size:17px}
+.scene-mini b{color:var(--c-pine)}
+.scene-mini .sel-tags{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;gap:4px}
+
+/* SEL 五大核心 legend + chips */
+.sel-legend{display:flex;flex-wrap:wrap;gap:5px;margin:14px 0 6px;padding:10px 14px;background:var(--paper-2);border-radius:10px;align-items:center}
+.sel-legend .ll{font-size:11px;letter-spacing:.25em;font-weight:800;color:var(--ink-mute);margin-right:4px}
+.sel-chip{display:inline-block;padding:2px 9px;border-radius:11px;font-size:11px;font-weight:800;letter-spacing:.05em;line-height:1.55;white-space:nowrap}
+.sel-chip.s1{background:var(--c-pine-soft);color:var(--c-pine)}
+.sel-chip.s2{background:var(--c-warm-light);color:#b04e1f}
+.sel-chip.s3{background:var(--c-sky-light);color:#3a7e94}
+.sel-chip.s4{background:#dcecd8;color:#3d7849}
+.sel-chip.s5{background:var(--c-gold-light);color:#8a6818}
+
+.sub-line{font-size:13.5px;color:var(--ink-soft);line-height:1.85;margin-top:14px}
+.sub-line b{color:var(--c-pine)}
+
+/* P3 黃金圈三圈合一頁 */
+.gc-three{display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px}
+.gc-row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;display:grid;grid-template-columns:90px 1fr;gap:18px;align-items:center;border-left:5px solid var(--c-pine)}
+.gc-row.how{border-left-color:var(--c-main)}
+.gc-row.what{border-left-color:var(--c-warm)}
+.gc-side{text-align:center}
+.gc-side .mark{font-family:"Times New Roman",serif;font-style:italic;font-size:20px;font-weight:800;color:#fff;background:var(--c-pine);padding:5px 14px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.gc-row.how .gc-side .mark{background:var(--c-main)}
+.gc-row.what .gc-side .mark{background:var(--c-warm)}
+.gc-side .lbl{font-size:10px;letter-spacing:.25em;color:var(--ink-mute);font-weight:800}
+.gc-text h3{font-size:15px;font-weight:800;color:var(--c-pine);margin-bottom:6px;line-height:1.4}
+.gc-text p{font-size:13.5px;color:var(--ink-soft);line-height:1.85}
+.gc-text p b{color:var(--c-pine)}
+
+.reveal-mini{margin-top:18px;background:linear-gradient(135deg,var(--c-pine-soft),var(--paper-2));border:1.5px solid var(--c-leaf);border-radius:18px;padding:26px;text-align:center}
+.reveal-mini .small{font-size:11px;letter-spacing:.4em;color:var(--c-warm);font-weight:800;margin-bottom:10px}
+.reveal-mini p{font-size:15px;color:var(--ink);line-height:1.85}
+.reveal-mini .big-name{font-size:32px;font-weight:800;color:var(--c-pine);background:linear-gradient(180deg,transparent 60%,var(--c-gold-light) 60%);padding:0 8px;display:inline-block;margin-top:6px}
+.reveal-mini .stdline{margin-top:14px;padding-top:14px;border-top:1px dashed var(--c-leaf);font-size:13.5px;color:var(--ink-2);line-height:1.85}
+.reveal-mini .stdline b{color:var(--c-pine)}
+
+/* P4 四大系統 */
+.systems-4{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.sys-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 20px;position:relative;overflow:hidden}
+.sys-card::before{content:"";position:absolute;left:0;top:0;width:5px;height:100%}
+.sys-card.s1::before{background:var(--c-sky)}
+.sys-card.s2::before{background:var(--c-pine)}
+.sys-card.s3::before{background:var(--c-warm)}
+.sys-card.s4::before{background:var(--c-gold)}
+.sys-num{font-family:"Times New Roman",serif;font-style:italic;font-size:15px;font-weight:800;padding:3px 10px;border-radius:6px;color:#fff;display:inline-block;margin-bottom:10px;letter-spacing:.05em}
+.sys-card.s1 .sys-num{background:var(--c-sky)}
+.sys-card.s2 .sys-num{background:var(--c-pine)}
+.sys-card.s3 .sys-num{background:var(--c-warm)}
+.sys-card.s4 .sys-num{background:var(--c-gold)}
+.sys-tag{font-size:11px;letter-spacing:.25em;font-weight:800;margin-bottom:6px}
+.sys-card.s1 .sys-tag{color:var(--c-sky)}
+.sys-card.s2 .sys-tag{color:var(--c-pine)}
+.sys-card.s3 .sys-tag{color:var(--c-warm)}
+.sys-card.s4 .sys-tag{color:var(--c-gold)}
+.sys-card h3{font-size:16.5px;font-weight:800;color:var(--c-pine);margin-bottom:8px;line-height:1.4}
+.sys-card p{font-size:13px;color:var(--ink-soft);line-height:1.75}
+.sys-card p b{color:var(--c-pine)}
+
+.cycle-band{margin-top:18px;background:linear-gradient(90deg,var(--c-sky-light),var(--c-pine-soft),var(--c-warm-light),var(--c-gold-light));border-radius:14px;padding:16px 22px;text-align:center;font-size:13px;color:var(--ink);font-weight:700;letter-spacing:.08em;line-height:1.7}
+.cycle-band b{color:var(--c-pine)}
+
+/* P5 課堂 */
+.lesson-card{background:#fff;border:1.5px solid var(--c-leaf);border-radius:18px;padding:26px;margin-top:18px;line-height:2;font-size:14.5px;color:var(--ink)}
+.lesson-card .ctx{font-size:11px;letter-spacing:.25em;color:var(--c-warm);font-weight:800;margin-bottom:6px}
+.lesson-card b{color:var(--c-pine);font-weight:700}
+.lesson-card .step{padding:5px 0 5px 14px;border-left:2px solid var(--c-pine-soft);margin-top:10px}
+
+/* P6 孩子改變 */
+.quote-list{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+.q-item{background:#fff;border-left:4px solid var(--c-pine);padding:16px 22px;border-radius:0 12px 12px 0;font-size:15px;color:var(--ink);line-height:1.95}
+.q-item .from{font-size:11.5px;color:var(--c-warm);letter-spacing:.12em;font-weight:700;margin-bottom:5px}
+.q-item b{color:var(--c-pine)}
+
+/* P7 下一步 */
+.fit-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.fit-b{padding:20px;border-radius:14px}
+.fit-b.y{background:var(--c-pine-soft);border:1px solid var(--c-leaf)}
+.fit-b.n{background:#faf6f0;border:1px solid var(--line)}
+.fit-b .lbl{font-size:11px;letter-spacing:.3em;font-weight:800;margin-bottom:10px}
+.fit-b.y .lbl{color:var(--c-pine)}
+.fit-b.n .lbl{color:var(--c-warm)}
+.fit-b li{font-size:13.5px;list-style:none;padding:5px 0 5px 20px;position:relative;line-height:1.6}
+.fit-b.y li::before{content:"✓";position:absolute;left:0;color:var(--c-pine);font-weight:800;font-size:12px}
+.fit-b.n li::before{content:"–";position:absolute;left:0;color:var(--c-warm);font-weight:800}
+
+.class-bar{margin-top:18px;background:#fff;border:1px dashed var(--c-leaf);border-radius:14px;padding:18px 22px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:13px}
+.class-bar .cb{text-align:center;border-right:1px dashed var(--line)}
+.class-bar .cb:last-child{border-right:none}
+.class-bar .cb b{color:var(--c-pine);font-size:14.5px;font-weight:800;display:block;margin-bottom:5px}
+.class-bar .cb .desc{color:var(--ink-soft);font-size:11.5px;line-height:1.7}
+
+.cta-show{margin-top:18px;background:linear-gradient(135deg,var(--c-pine) 0%,#0f3525 100%);color:#fff;padding:30px;border-radius:20px;text-align:center}
+.cta-show .step{font-size:11px;letter-spacing:.35em;opacity:.7;margin-bottom:10px}
+.cta-show h3{font-size:22px;font-weight:800;margin-bottom:8px;line-height:1.5}
+.cta-show h3 b{color:var(--c-gold)}
+.cta-show .sub{font-size:13px;opacity:.88;line-height:1.95;margin-bottom:18px}
+.cta-show .sub b{color:var(--c-gold)}
+.cta-show .btn{background:#fff;color:var(--c-pine);padding:14px 24px;border-radius:12px;font-weight:800;font-size:15px;display:inline-block}
+
+.contact-line{margin-top:18px;text-align:center;font-size:13.5px;color:var(--ink-soft);line-height:1.85}
+.contact-line .ver{font-size:11px;color:var(--ink-mute);margin-top:10px;display:block;opacity:.8}
+
+/* ===== 班級分頁 P5-P7 ===== */
+.class-mark{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.class-pill{background:var(--c-pine);color:#fff;padding:7px 18px;border-radius:999px;font-size:13px;font-weight:800;letter-spacing:.3em}
+.class-age{background:var(--c-warm);color:#fff;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.18em}
+.cls-meng .class-pill{background:#c97a3a}
+.cls-meng .class-age{background:#6b4030}
+.cls-zhi .class-pill{background:#1f4d3a}
+.cls-zhi .class-age{background:#d9a83a;color:#3b2c08}
+.cls-you .class-pill{background:#2a4a6b}
+.cls-you .class-age{background:#7ec0d8;color:#0b3142}
+
+.class-quote h1{font-size:32px;line-height:1.45;color:var(--c-pine);font-weight:800;margin-bottom:18px;letter-spacing:.01em}
+.class-quote h1 .hl{background:linear-gradient(180deg,transparent 62%,var(--c-gold-light) 62%);padding:0 6px}
+.cls-meng .class-quote h1 .hl{background:linear-gradient(180deg,transparent 62%,#fad6c1 62%)}
+.cls-you  .class-quote h1 .hl{background:linear-gradient(180deg,transparent 62%,#d5e0ec 62%)}
+
+.position-box{background:#fff;border-left:4px solid var(--c-pine);padding:16px 20px;border-radius:0 12px 12px 0;margin-bottom:18px;font-size:13.5px;line-height:1.95;color:var(--ink)}
+.position-box .lbl{font-size:11px;color:var(--c-warm);letter-spacing:.28em;font-weight:800;margin-bottom:8px}
+.position-box b{color:var(--c-pine)}
+.cls-meng .position-box{border-left-color:#c97a3a}
+.cls-you  .position-box{border-left-color:#2a4a6b}
+
+.ability-block{margin-bottom:18px}
+.ability-block .lbl{font-size:11px;color:var(--c-warm);letter-spacing:.28em;font-weight:800;margin-bottom:6px}
+.ability-block h3{font-size:20px;color:var(--c-pine);font-weight:800;margin-bottom:14px;line-height:1.5}
+.ab-list{display:flex;flex-direction:column;gap:10px}
+.ab-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 18px;display:grid;grid-template-columns:32px 1fr;gap:12px;font-size:13.5px;line-height:1.75;color:var(--ink)}
+.ab-item .abn{color:var(--c-pine);font-family:"Times New Roman",serif;font-style:italic;font-weight:700;font-size:18px}
+.ab-item b{color:var(--c-pine)}
+.cls-meng .ab-item .abn{color:#c97a3a}
+.cls-meng .ab-item b{color:#c97a3a}
+.cls-you  .ab-item .abn{color:#2a4a6b}
+.cls-you  .ab-item b{color:#2a4a6b}
+
+/* P8 ・ 課堂教學模組 */
+.modules-block{background:#fff;border:1.5px solid var(--c-leaf);border-radius:14px;padding:16px 22px;margin:16px 0}
+.modules-h{font-size:11.5px;letter-spacing:.32em;color:var(--c-warm);font-weight:800;margin-bottom:12px}
+.modules-list{display:flex;flex-direction:column}
+.mod{display:grid;grid-template-columns:148px 24px 1fr;gap:6px;align-items:start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px;line-height:1.6}
+.mod:last-child{border-bottom:none}
+.mod-l{color:var(--c-pine);font-weight:800;letter-spacing:.03em}
+.mod-arrow{color:var(--c-warm);font-weight:800;text-align:center;font-family:"Times New Roman",serif}
+.mod-r{color:var(--ink);line-height:1.65}
+.mod-r b{color:var(--c-pine)}
+
+.info-strip{margin-top:14px;background:#fff;border:1px dashed var(--c-leaf);border-radius:12px;padding:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.info-strip .ic{text-align:center;border-right:1px dashed var(--line);padding:0 6px}
+.info-strip .ic:last-child{border-right:none}
+.info-strip .ic .l{font-size:10.5px;letter-spacing:.22em;color:var(--ink-mute);font-weight:800;margin-bottom:4px}
+.info-strip .ic .v{color:var(--c-pine);font-size:14.5px;font-weight:800}
+.cls-meng .info-strip .ic .v{color:#c97a3a}
+.cls-you  .info-strip .ic .v{color:#2a4a6b}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff}
+  .toolbar{display:none}
+  .deck{max-width:100%;margin:0;padding:0;display:block}
+  .book{display:block;box-shadow:none;transform:none !important}
+  .book::after{display:none}
+  .slide{display:block !important;width:210mm;min-height:297mm;page-break-after:always;box-shadow:none !important;margin:0;border-radius:0;animation:none !important}
+  .slide:last-child{page-break-after:auto}
+  .slide.blank{display:none !important}
+}
+
+@media (max-width:720px){
+  .deck{padding:0 14px 60px}
+  .slide{border-radius:16px}
+  .page-body{padding:42px 26px 30px}
+  h1.big{font-size:28px}
+  h2.med{font-size:22px}
+  .page-num,.page-title{position:static;display:inline-block;margin-bottom:10px;margin-right:14px}
+  .systems-4,.fit-2{grid-template-columns:1fr}
+  .class-bar{grid-template-columns:1fr;gap:12px}
+  .class-bar .cb{border-right:none;border-bottom:1px dashed var(--line);padding-bottom:10px}
+  .class-bar .cb:last-child{border-bottom:none}
+  .gc-row{grid-template-columns:1fr;gap:12px;text-align:left}
+  .gc-side{text-align:left}
+}
+
+
+/* === GitHub Pages 版：無工具列、全頁滾動 === */
+html, body { background: #e8e2d2; }
+.toolbar { display: none !important; }
+.deck { margin: 24px auto !important; padding: 0 16px 60px; max-width: none; display: block !important; }
+.book {
+  display: block !important;
+  background: transparent;
+  box-shadow: none !important;
+  transform: none !important;
+  max-width: 210mm;
+  margin: 0 auto;
+}
+.book::after { display: none !important; }
+
+.slide {
+  display: block !important;
+  width: 100%;
+  max-width: 210mm;
+  min-height: auto;
+  background: var(--paper);
+  margin: 0 auto 24px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 14px 36px rgba(0,0,0,.18), 0 4px 12px rgba(0,0,0,.1) !important;
+  animation: none !important;
+  position: relative;
+}
+.slide.blank { display: none !important; }
+
+/* 頁碼徽章右上角 */
+.slide::after {
+  content: attr(data-page);
+  position: absolute;
+  top: 14px; right: 18px;
+  font-size: 10px;
+  letter-spacing: .15em;
+  color: var(--ink-mute);
+  font-weight: 700;
+  background: rgba(255,255,255,.85);
+  padding: 3px 9px;
+  border-radius: 999px;
+  z-index: 10;
+}
+
+/* GitHub 用 floating brand mark */
+.gh-credit {
+  position: fixed;
+  bottom: 14px; right: 16px;
+  background: rgba(31,77,58,.92);
+  color: #f5efe0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: .12em;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  font-family: "Noto Sans TC", sans-serif;
+}
+.gh-credit:hover { background: rgba(31,77,58,1); }
+
+/* 列印：保留 A4 單頁分頁 */
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  html, body { background: #fff; }
+  .deck { margin: 0 !important; padding: 0 !important; }
+  .slide {
+    width: 210mm; height: 297mm; min-height: 297mm;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none !important;
+    page-break-after: always;
+  }
+  .slide::after, .gh-credit { display: none !important; }
+}
+
+/* 手機適配 */
+@media (max-width: 720px) {
+  .deck { margin: 12px auto !important; padding: 0 8px 40px; }
+  .slide { margin-bottom: 14px; border-radius: 4px; }
+  .slide::after { font-size: 9px; padding: 2px 7px; }
+}
+
+* { animation: none !important; }
+</style>
+<!-- GitHub Pages OG / Twitter meta -->
+<meta name="description" content="覺知 SEL ・ 陪孩子裝備好非認知能力 ・ 培養覺知素養的社會情緒學習課程">
+<meta property="og:title" content="覺知 SEL ｜ 家長介紹本">
+<meta property="og:description" content="情緒 ・ 自律 ・ 自信 ・ 人際 ・ 決策——那些 IQ 測不出，卻決定孩子未來的能力。">
+<meta property="og:type" content="website">
+<style>
+/* dummy reopen for parser; actual close earlier */
+
+</style>
+</head>
+<body>
+
+<div class="deck">
+<div class="book">
+<article class="slide show" data-page="P.01 開場">
+    <div class="page-body">
+      <span class="page-num">▸ 給 您</span>
+      <span class="page-title">P.01</span>
+      <div class="content">
+        <div class="brand-mark">覺察己心 ・ 知行合一</div>
+        <h1 class="big">陪孩子<br>裝備好<br><span class="ac">非認知能力</span>。</h1>
+        <h2 class="med">情緒 ・ 自律 ・ 自信 ・<br>人際 ・ 決策——<br>那些 IQ 測不出，<br>卻決定<span class="ac">孩子未來</span>的能力。</h2>
+        <p class="lede">我們是 <b>覺知 SEL</b>，<br>一套陪孩子培養<b>覺知素養</b>的課程——<br><br>讓孩子在<b>情緒上來時</b>，<br>能<b>先看見自己，再選擇下一步</b>。</p>
+      </div>
+    </div>
+  </article>
+<article class="slide" data-page="P.02 共鳴">
+    <div class="page-body">
+      <span class="page-num">▸ 共 鳴</span>
+      <span class="page-title">P.02 ・ 您是否也⋯</span>
+      <div class="content">
+        <h1 class="big">有時候，<br>一場親子衝突<br>不是從孩子<br>不聽話開始——</h1>
+        <p class="lede">而是從我們心裡那句<br><b>「我又搞砸了」</b>開始。</p>
+
+        <p class="sub-line">這些不是教養失敗。每一個拉扯，<b>對應的都是 SEL 五大核心的真實挑戰</b>——孩子需要的不是更多管教，而是<b>把這 5 件事練起來</b>。</p>
+
+        <div class="sel-legend">
+          <span class="ll">SEL 五 大 核 心</span>
+          <span class="sel-chip s1">自我覺察</span>
+          <span class="sel-chip s2">自我管理</span>
+          <span class="sel-chip s3">社會覺察</span>
+          <span class="sel-chip s4">人際技巧</span>
+          <span class="sel-chip s5">負責任的決定</span>
+        </div>
+
+        <div class="scenes-mini">
+          <div class="scene-mini"><span class="n">1</span><div><b>幼兒　・　情緒爆發</b><br>玩具搶輸／被誤會時，他不是哭就是<b>整個人垮掉</b>——你怎麼安撫都沒用，常常自己也跟著煩躁起來。<div class="sel-tags"><span class="sel-chip s1">自我覺察</span><span class="sel-chip s2">自我管理</span></div></div></div>
+          <div class="scene-mini"><span class="n">2</span><div><b>國小　・　自律 + 情緒 + 自信</b><br><b>寫作業、洗澡、睡覺</b>都成一場拉扯，一被催就<b>鬧情緒</b>；明明會卻<b>不敢試</b>，做錯一次就說「<b>反正我就是不行</b>」。<div class="sel-tags"><span class="sel-chip s2">自我管理</span><span class="sel-chip s1">自我覺察</span><span class="sel-chip s5">負責任的決定</span></div></div></div>
+          <div class="scene-mini"><span class="n">3</span><div><b>國中　・　自律 + 情緒 + 交友 + 3C</b><br>該做的事得<b>催到底</b>，<b>手機一拿起來就回不來</b>；問他都說「<b>沒事</b>」——<b>朋友圈我們插不進去</b>，連該不該管都難拿捏。<div class="sel-tags"><span class="sel-chip s2">自我管理</span><span class="sel-chip s3">社會覺察</span><span class="sel-chip s4">人際技巧</span><span class="sel-chip s5">負責任的決定</span></div></div></div>
+        </div>
+      </div>
+    </div>
+  </article>
+<article class="slide" data-page="P.03 黃金圈">
+    <div class="page-body">
+      <span class="page-num">▸ 核 心</span>
+      <span class="page-title">P.03 ・ 什麼是「覺知」</span>
+      <div class="content">
+        <h2 class="med">什麼是「<span class="ac">覺知</span>」？<br>用三個問題，慢慢進入。</h2>
+
+        <div class="gc-three">
+          <div class="gc-row">
+            <div class="gc-side"><span class="mark">WHY</span><div class="lbl">為什麼</div></div>
+            <div class="gc-text">
+              <h3>因為現在的環境不一樣了</h3>
+              <p>AI 改寫世界、變動越來越快。孩子要面對的不只是課業——還有<b>社群比較、同儕脆弱、未來不確定</b>。連大人都常自顧不暇。<br>講道理沒用，因為情緒一上來，<b>只能在反應，不是在選擇</b>。</p>
+            </div>
+          </div>
+
+          <div class="gc-row how">
+            <div class="gc-side"><span class="mark">HOW</span><div class="lbl">怎麼做</div></div>
+            <div class="gc-text">
+              <h3>不是叫他冷靜，是練習 SEL 五大核心</h3>
+              <p>透過情境討論、表達練習、行動任務——<br><b>覺察自己 ・ 管理情緒 ・ 看見他人 ・ 經營關係 ・ 做出選擇</b>。<br><span style="font-size:11.5px;color:var(--ink-mute);letter-spacing:.05em">（即 SEL 框架：自我覺察 ・ 自我管理 ・ 社會覺察 ・ 人際技巧 ・ 負責任的決定）</span></p>
+            </div>
+          </div>
+
+          <div class="gc-row what">
+            <div class="gc-side"><span class="mark">WHAT</span><div class="lbl">是什麼</div></div>
+            <div class="gc-text">
+              <h3>覺知是一種「能力」</h3>
+              <p>不是狀態——是<b>在事情發生的當下，能先看見自己、再選擇下一步</b>的能力。<br>它讓情緒與行動之間，多了一個<b>選擇的空間</b>。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal-mini">
+          <div class="small">我 們 把 這 種 能 力 ， 稱 為——</div>
+          <div class="big-name">覺知素養</div>
+          <div class="stdline">
+            而 <b>覺知 SEL</b>，就是<b>陪孩子培養覺知素養</b>的課程。
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+<article class="slide" data-page="P.04 四大系統">
+    <div class="page-body">
+      <span class="page-num">▸ 系 統</span>
+      <span class="page-title">P.04 ・ 覺知素養教育系統</span>
+      <div class="content">
+        <h2 class="med">教育沒有系統，<br><span class="ac">再好的理念都走不遠</span>。</h2>
+        <p class="lede" style="font-size:14.5px">成長不是一次性的活動，而是<b>一段被陪伴的歷程</b>。<br>短期成績不是目標——孩子<b>未來的方向感</b>，才是我們所在意的。</p>
+
+        <div class="systems-4">
+          <div class="sys-card s1">
+            <span class="sys-num">01</span>
+            <div class="sys-tag">看 ・ 見</div>
+            <h3>覺知全人測評</h3>
+            <p>「<b>先看懂孩子，再開始教育。</b>」<br>從<b>孩子、家長、老師</b>三角度看見內在狀態——把成長從「看結果」變成「看過程」。</p>
+          </div>
+
+          <div class="sys-card s2">
+            <span class="sys-num">02</span>
+            <div class="sys-tag">陪 ・ 伴</div>
+            <h3>覺知 SEL 課程</h3>
+            <p>「<b>依年齡建立一生受用的能力。</b>」<br>結合<b>神經科學 ・ 正向心理學 ・ 管理學</b>——在看不見未來的時代，依然有看見方向的能力。</p>
+          </div>
+
+          <div class="sys-card s3">
+            <span class="sys-num">03</span>
+            <div class="sys-tag">賦 ・ 能</div>
+            <h3>覺知 STEAM-R</h3>
+            <p>「<b>以內在定力，駕馭科技速度。</b>」<br>STEAM + 獨家 <b>R（Realization 覺知實踐）</b>——在動手實作中，覺察思考與決策狀態。</p>
+          </div>
+
+          <div class="sys-card s4">
+            <span class="sys-num">04</span>
+            <div class="sys-tag">同 ・ 行</div>
+            <h3>家長學堂</h3>
+            <p>「<b>少一塊，都不完整的成長拼圖。</b>」<br>家長不是旁觀者——是<b>不可或缺的一塊</b>。陪您看懂測評結果、建立一致溫和的教養語言。</p>
+          </div>
+        </div>
+
+        <div class="cycle-band">
+          <b>看見 → 陪伴 → 賦能 → 同行 → 再看見</b><br>四個系統環環相扣，<b>讓改變穩穩發生，不再一次次回到原點</b>
+        </div>
+      </div>
+    </div>
+  </article>
+<article class="slide cls-meng" data-page="P.05 啟蒙班">
+    <div class="page-body">
+      <span class="page-num">▸ 班 級</span>
+      <span class="page-title">P.05 ・ 啟 蒙 班</span>
+      <div class="content">
+        <div class="class-mark">
+          <span class="class-pill">啟 蒙 班</span>
+          <span class="class-age">3 – 6 歲</span>
+        </div>
+        <div class="class-quote">
+          <h1>當孩子還說不出<br>「我難過」——<br><span class="hl">他只能用哭、用鬧</span>。</h1>
+        </div>
+
+        <div class="position-box">
+          <div class="lbl">一 句 話 ・ 啟 蒙 班 在 做 什 麼</div>
+          幼兒不是不講道理——是<b>還沒有「面對自己」的詞彙</b>。<br>
+          啟蒙班用<b>遊戲與藝術</b>，陪孩子打開<b>人生的第一張情緒地圖</b>。
+        </div>
+
+        <div class="ability-block">
+          <div class="lbl">孩 子 會 練 習</div>
+          <h3>三件最關鍵的事——</h3>
+          <div class="ab-list">
+            <div class="ab-item"><span class="abn">01</span><div>能說出<b>「我現在很生氣／很難過」</b>，而不只是哭鬧。</div></div>
+            <div class="ab-item"><span class="abn">02</span><div>玩具壞了、被誤會了——願意<b>停一下、深呼吸</b>，再想辦法。</div></div>
+            <div class="ab-item"><span class="abn">03</span><div>面對新環境，<b>不再只是抗拒</b>，而是給自己一點時間適應。</div></div>
+          </div>
+        </div>
+
+        <div class="fit-2">
+          <div class="fit-b y">
+            <div class="lbl">適 合</div>
+            <li>情緒風暴大、爆炸後說不出怎麼了</li>
+            <li>挫折就放棄、丟玩具的孩子</li>
+            <li>對新環境特別焦慮的孩子</li>
+          </div>
+          <div class="fit-b n">
+            <div class="lbl">先 別 急</div>
+            <li>需要密集臨床治療的孩子</li>
+            <li>無法穩定參與團體互動</li>
+          </div>
+        </div>
+
+        <div class="info-strip">
+          <div class="ic"><div class="l">上 課 頻 率</div><div class="v">每週 1 堂</div></div>
+          <div class="ic"><div class="l">課 堂 時 長</div><div class="v">50 分鐘</div></div>
+          <div class="ic"><div class="l">班 級 規 模</div><div class="v">小班制</div></div>
+        </div>
+      </div>
+    </div>
+  </article>
+<article class="slide cls-zhi" data-page="P.06 開智班">
+    <div class="page-body">
+      <span class="page-num">▸ 班 級</span>
+      <span class="page-title">P.06 ・ 開 智 班</span>
+      <div class="content">
+        <div class="class-mark">
+          <span class="class-pill">開 智 班</span>
+          <span class="class-age">7 – 12 歲</span>
+        </div>
+        <div class="class-quote">
+          <h1>寫個功課像打仗，<br>講不聽、催不動——<br><span class="hl">罵了又後悔</span>。</h1>
+        </div>
+
+        <div class="position-box">
+          <div class="lbl">一 句 話 ・ 開 智 班 在 做 什 麼</div>
+          國小不是孩子變壞——是他開始有「自己的想法」，<b>但還沒學會自己作主</b>。<br>
+          開智班教<b>自律與表達</b>——<b>讓催促變成自願，讓衝突變成對話</b>。
+        </div>
+
+        <div class="ability-block">
+          <div class="lbl">孩 子 會 練 習</div>
+          <h3>三件最關鍵的事——</h3>
+          <div class="ab-list">
+            <div class="ab-item"><span class="abn">01</span><div>會<b>自己排作業、知道事情先後</b>——不再每天上演拉鋸戰。</div></div>
+            <div class="ab-item"><span class="abn">02</span><div>跟同學起衝突，會說<b>「我覺得⋯⋯」</b>而不是只罵人。</div></div>
+            <div class="ab-item"><span class="abn">03</span><div>挫折時，會說<b>「我先離開一下」</b>——而不是用力關門。</div></div>
+          </div>
+        </div>
+
+        <div class="fit-2">
+          <div class="fit-b y">
+            <div class="lbl">適 合</div>
+            <li>寫作業拖拉、催不動的孩子</li>
+            <li>跟同學衝突只會罵或告狀</li>
+            <li>聰明但找不到動力的孩子</li>
+          </div>
+          <div class="fit-b n">
+            <div class="lbl">先 別 急</div>
+            <li>期待短期變高分、變聽話</li>
+            <li>需要一對一密集心理支持</li>
+          </div>
+        </div>
+
+        <div class="info-strip">
+          <div class="ic"><div class="l">上 課 頻 率</div><div class="v">每週 1 堂</div></div>
+          <div class="ic"><div class="l">課 堂 時 長</div><div class="v">50 分鐘</div></div>
+          <div class="ic"><div class="l">班 級 規 模</div><div class="v">小班制</div></div>
+        </div>
+      </div>
+    </div>
+  </article>
+<article class="slide cls-you" data-page="P.07 智優班">
+    <div class="page-body">
+      <span class="page-num">▸ 班 級</span>
+      <span class="page-title">P.07 ・ 智 優 班</span>
+      <div class="content">
+        <div class="class-mark">
+          <span class="class-pill">智 優 班</span>
+          <span class="class-age">13 – 15 歲</span>
+        </div>
+        <div class="class-quote">
+          <h1>跟孩子說話，<br>變成跟<br><span class="hl">一扇關起來的門對話</span>。</h1>
+        </div>
+
+        <div class="position-box">
+          <div class="lbl">一 句 話 ・ 智 優 班 在 做 什 麼</div>
+          青春期不是叛逆——是他在拼命找「<b>我是誰</b>」。<br>
+          智優班陪孩子<b>看見行為下面那些說不出口的話</b>——也找回<b>跟家長對話的方式</b>。
+        </div>
+
+        <div class="ability-block">
+          <div class="lbl">孩 子 會 練 習</div>
+          <h3>三件最關鍵的事——</h3>
+          <div class="ab-list">
+            <div class="ab-item"><span class="abn">01</span><div>能說<b>「我現在不想講，但我晚一點可以跟你說」</b>，而不是甩門沉默。</div></div>
+            <div class="ab-item"><span class="abn">02</span><div>壓力中能<b>深呼吸、把焦慮轉成行動力</b>，不被吞沒。</div></div>
+            <div class="ab-item"><span class="abn">03</span><div>開始<b>清楚自己對什麼有熱情</b>、想往哪裡走。</div></div>
+          </div>
+        </div>
+
+        <div class="fit-2">
+          <div class="fit-b y">
+            <div class="lbl">適 合</div>
+            <li>關門沉默、頂嘴白眼的孩子</li>
+            <li>同儕壓力大、被排擠或跟風</li>
+            <li>對未來茫然、不知方向</li>
+          </div>
+          <div class="fit-b n">
+            <div class="lbl">先 別 急</div>
+            <li>目前需要立即危機處理</li>
+            <li>需要臨床心理治療的孩子</li>
+          </div>
+        </div>
+
+        <div class="info-strip">
+          <div class="ic"><div class="l">上 課 頻 率</div><div class="v">每週 1 堂</div></div>
+          <div class="ic"><div class="l">課 堂 時 長</div><div class="v">90 分鐘</div></div>
+          <div class="ic"><div class="l">班 級 規 模</div><div class="v">小班制</div></div>
+        </div>
+      </div>
+    </div>
+  </article>
+<article class="slide" data-page="P.08 課堂實況">
+    <div class="page-body">
+      <span class="page-num">▸ 現 場</span>
+      <span class="page-title">P.08 ・ 一堂課的樣子</span>
+      <div class="content">
+        <h2 class="med">那麼，孩子在課堂上<br><span class="ac">到底在做什麼</span>？</h2>
+        <p class="lede" style="font-size:14px">不是聊天、不是聽道理——是用<b>五大教學模組</b>，把覺知素養練成生活裡的能力。</p>
+
+        <!-- 五大教學模組 -->
+        <div class="modules-block">
+          <div class="modules-h">課 堂 中 ・ 五 大 教 學 模 組</div>
+          <div class="modules-list">
+            <div class="mod"><div class="mod-l">腦科學靜心</div><div class="mod-arrow">▸</div><div class="mod-r">學習<b>會專注的方法</b>，不是要孩子坐好——是讓他<b>知道如何回到當下</b>。</div></div>
+            <div class="mod"><div class="mod-l">管理學規劃</div><div class="mod-arrow">▸</div><div class="mod-r">從小學習<b>目標與時間管理</b>，把「我做不到」換成「我可以拆成幾步」。</div></div>
+            <div class="mod"><div class="mod-l">溝通表達練 4C</div><div class="mod-arrow">▸</div><div class="mod-r"><b>思辨 ・ 合作 ・ 創意 ・ 溝通</b>——練到能對話、能合作、能解問題。</div></div>
+            <div class="mod"><div class="mod-l">正向心理轉化</div><div class="mod-arrow">▸</div><div class="mod-r">挫折不是要孩子<b>假裝沒事</b>——是學會<b>重新理解自己</b>。</div></div>
+            <div class="mod"><div class="mod-l">覺察與反思</div><div class="mod-arrow">▸</div><div class="mod-r">看見<b>此刻情緒、想法、選擇</b>——讓「反應」變成「選擇」。</div></div>
+          </div>
+        </div>
+
+        <!-- 情境範例（精簡版） -->
+        <div class="lesson-card" style="padding:16px 20px;font-size:13.5px;line-height:1.85;margin-top:14px">
+          <div class="ctx" style="margin-bottom:4px">課 堂 上 ・ 一 個 真 實 場 景</div>
+          <b>孩子說：</b>「我明明不想寫作業，但大人一直催我——我就大爆炸。」<br>
+          <b style="color:var(--c-warm)">老師問：</b>「被催的時候，<b>你身體哪裡最緊？心裡最想做什麼？</b>」<br>
+          <span style="color:var(--ink-mute)">→ 接著用五大模組陪孩子，從「<b>我心裡像有火</b>」走到「<b>我想先離開一下，等等再回來</b>」。</span>
+        </div>
+      </div>
+    </div>
+  </article>
+<article class="slide" data-page="P.09 改變">
+    <div class="page-body">
+      <span class="page-num">▸ 改 變</span>
+      <span class="page-title">P.09 ・ 您會在家慢慢聽到</span>
+      <div class="content">
+        <h2 class="med">您會在家裡<br>慢慢<span class="ac">聽到</span>——</h2>
+        <p class="lede" style="font-size:14px;font-style:italic;color:var(--ink-soft);margin-bottom:8px">
+          ＊ 一開始孩子不一定能說得這麼完整。<br>
+          但他會慢慢從沉默、爆炸、頂嘴，<br>
+          練習說出<b>更接近真實感受的話</b>。
+        </p>
+        <div class="quote-list">
+          <div class="q-item">
+            <div class="from">從「沒事。」（然後關上門）</div>
+            開始能說——<b>「我現在不想講，但我晚一點可以跟你說。」</b>
+          </div>
+          <div class="q-item">
+            <div class="from">從「我不知道」</div>
+            開始能說——<b>「我現在很煩，給我五分鐘。」</b>
+          </div>
+          <div class="q-item">
+            <div class="from">從「我不要！」</div>
+            開始能說——<b>「我不是想跟你吵，我只是覺得你沒有聽我說完。」</b>
+          </div>
+          <div class="q-item">
+            <div class="from">從「我做不到」</div>
+            開始能說——<b>「我先試一次，不行的話我再請你幫我。」</b>
+          </div>
+        </div>
+        <p class="lede" style="margin-top:18px;font-size:13.5px;color:var(--ink-soft)">
+          這些不是「乖」的證明——<br>
+          是孩子<b>有了選擇空間</b>的證明。
+        </p>
+      </div>
+    </div>
+  </article>
+<article class="slide" data-page="P.10 下一步">
+    <div class="page-body">
+      <span class="page-num">▸ 下 一 步</span>
+      <span class="page-title">P.10 ・ 接 下 來</span>
+      <div class="content">
+        <h2 class="med">那麼，<br>下一步<span class="ac">怎麼開始</span>？</h2>
+        <p class="lede" style="font-size:14.5px">
+          您不需要現在就決定要不要報名。<br>
+          <b>慢慢認識覺知 SEL</b>——比任何承諾都重要的，是您的安心。
+        </p>
+
+        <div class="fit-2">
+          <div class="fit-b y">
+            <div class="lbl">適 合 開 始 ・ 如 果</div>
+            <li>孩子已經<b>進入情緒就難回頭</b>，您想多一種方法</li>
+            <li>您希望<b>不只處理當下</b>，而是培養能力</li>
+            <li>您想找<b>有系統、有理論的</b> SEL 課程</li>
+            <li>您願意<b>每週 1 堂</b>，給孩子一段被陪伴的歷程</li>
+          </div>
+          <div class="fit-b n">
+            <div class="lbl">先 別 急 ・ 如 果</div>
+            <li>您希望<b>立刻看到成績進步</b>——這不是補習班</li>
+            <li>您期待<b>一次性的修復</b>——成長需要時間</li>
+            <li>家庭目前<b>無法配合每週一次</b>的節奏</li>
+            <li>您想找的是<b>純才藝或學科</b>類型課程</li>
+          </div>
+        </div>
+
+        <div class="class-bar">
+          <div class="cb"><b>啟蒙班</b><div class="desc">3-6 歲<br>每週 1 堂 ・ 50 分鐘</div></div>
+          <div class="cb"><b>開智班</b><div class="desc">7-12 歲<br>每週 1 堂 ・ 50 分鐘</div></div>
+          <div class="cb"><b>智優班</b><div class="desc">13-15 歲<br>每週 1 堂 ・ 90 分鐘</div></div>
+        </div>
+
+        <div class="cta-show">
+          <div class="step">第 一 步 ・ 最 簡 單 的 開 始</div>
+          <h3>加入官方 Line，<br>慢慢<b>認識覺知 SEL</b></h3>
+          <p class="sub">您可以了解：覺知素養的內涵 ・ 課程方式 ・ 班級資訊 ・ 預約 15 分鐘諮詢入口。<br><b>不需立即報名。</b></p>
+          <a href="https://line.me/R/ti/p/@931irimh" target="_blank" rel="noopener" class="btn" style="text-decoration:none">💬　官方 LINE　@931irimh　・　K12 覺知素養教育學苑</a>
+        </div>
+
+        <div class="contact-line">
+          <b>📞</b> 07-2693525　<b>📩</b> K12-KH-ART@z-way-edu.com　<b>📍</b> 高雄市鼓山區美術東三路 86 號
+          <span class="ver">台灣展威文化教育 ・ K12 覺知素養教育學苑　｜　家長介紹本 v10.0（10 頁完整版 ・ 整合介紹本/EDM/A4 印刷版） ・ 2026-05-13</span>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+</div>
+
+<a class="gh-credit" href="https://line.me/R/ti/p/@931irimh" target="_blank" rel="noopener">
+  💬 覺知 SEL ・ 加入官方 LINE
+</a>
+
+</body>
+</html>
