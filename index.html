@@ -541,22 +541,20 @@ html { scroll-behavior: smooth; }
 /* 手機適配：dock 縮小 + 移到底部 */
 @media (max-width: 720px) {
   .side-nav {
-    right: 50%;
-    top: auto;
-    bottom: 14px;
-    transform: translateX(50%);
-    flex-direction: row;
-    padding: 7px 10px;
+    right: 8px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    flex-direction: column;
+    padding: 6px 5px;
     gap: 4px;
-    border-radius: 999px;
-    overflow-x: auto;
-    max-width: 92vw;
+    border-radius: 20px;
+    max-width: none;
   }
-  .nav-pill { padding: 6px 12px; font-size: 11px; letter-spacing: .08em; }
-  .nav-pill.active { padding: 6px 14px; }
-  .nav-pill:hover { transform: scale(1.04); }
-  .nav-pill .np-label { display: none !important; }
-  .gh-credit { bottom: auto; top: 64px; }
+  .nav-pill { padding: 5px 9px; font-size: 10px; letter-spacing: .04em; }
+  .nav-pill.active { padding: 5px 11px; }
+  .nav-pill:hover { transform: translateX(-3px) scale(1.05); }
+  .gh-credit { bottom: 14px; }
 }
 
 </style>
