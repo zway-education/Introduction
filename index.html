@@ -339,7 +339,7 @@ p.lede b{color:var(--c-pine);font-weight:700}
 
 
 /* === GitHub Pages 版：無工具列、全頁滾動 === */
-html, body { background: #e8e2d2; }
+html, body { background: #e8e2d2; } body { padding-top: 66px; }
 .toolbar { display: none !important; }
 .deck { margin: 24px auto !important; padding: 0 16px 60px; max-width: none; display: block !important; }
 .book {
@@ -428,18 +428,21 @@ html { scroll-behavior: smooth; }
 /* === 右側浮動導航 dock === */
 .side-nav {
   position: fixed;
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 200;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px 6px;
-  background: rgba(255,255,255,.78);
-  backdrop-filter: blur(14px);
-  border-radius: 999px;
-  box-shadow: 0 8px 28px rgba(0,0,0,.14), 0 0 0 1px rgba(31,77,58,.08);
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 10px;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(16px);
+  border-radius: 22px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.12), 0 0 0 1px rgba(31,77,58,.08);
+  max-width: calc(100vw - 24px);
 }
 .nav-pill {
   background: rgba(31,77,58,.07);
@@ -461,7 +464,7 @@ html { scroll-behavior: smooth; }
 .nav-pill:hover {
   background: var(--c-warm);
   color: #fff;
-  transform: translateX(-4px) scale(1.06);
+  transform: translateY(-2px) scale(1.06);
 }
 .nav-pill.active {
   background: var(--c-pine);
@@ -539,22 +542,156 @@ html { scroll-behavior: smooth; }
 }
 
 /* 手機適配：dock 縮小 + 移到底部 */
+/* === 手機響應式（≤ 720px） === */
 @media (max-width: 720px) {
+  html, body { overflow-x: hidden; }
+  
+  /* 頂部 dock */
   .side-nav {
+    top: 8px;
+    left: 8px;
     right: 8px;
-    top: 50%;
     bottom: auto;
-    transform: translateY(-50%);
-    flex-direction: column;
-    padding: 6px 5px;
-    gap: 4px;
-    border-radius: 20px;
-    max-width: none;
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 7px 10px;
+    gap: 5px;
+    border-radius: 18px;
+    max-width: calc(100vw - 16px);
   }
-  .nav-pill { padding: 5px 9px; font-size: 10px; letter-spacing: .04em; }
-  .nav-pill.active { padding: 5px 11px; }
-  .nav-pill:hover { transform: translateX(-3px) scale(1.05); }
-  .gh-credit { bottom: 14px; }
+  .nav-pill {
+    padding: 7px 11px;
+    font-size: 11px;
+    letter-spacing: .03em;
+    min-height: 30px;
+  }
+  .nav-pill.active { padding: 7px 13px; }
+  .nav-pill:hover { transform: translateY(-1px) scale(1.04); }
+  
+  /* deck 上方留出 dock 空間（2 排夠用） */
+  .deck { margin-top: 88px !important; padding: 0 8px 60px !important; }
+  
+  /* 每頁卡片邊距 */
+  .slide {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 14px !important;
+    border-radius: 8px;
+  }
+  .slide:hover { transform: none; }
+  
+  /* page-body 縮邊距 */
+  .page-body { padding: 32px 20px 24px !important; min-height: auto !important; height: auto !important; }
+  .page-num, .page-title {
+    position: static !important;
+    display: inline-block;
+    margin: 0 10px 8px 0;
+    font-size: 10px !important;
+  }
+  
+  /* 字體縮放 */
+  h1.big { font-size: 26px !important; line-height: 1.4 !important; margin-bottom: 14px !important; }
+  h2.med { font-size: 19px !important; line-height: 1.5 !important; margin-bottom: 12px !important; }
+  .class-quote h1 { font-size: 24px !important; line-height: 1.45 !important; }
+  p.lede { font-size: 14px !important; line-height: 1.85 !important; }
+  
+  /* 場景卡：1 欄 */
+  .scenes-mini { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .scene-mini { padding: 12px 14px !important; font-size: 13px !important; }
+  .scene-mini .sel-tags { margin-top: 6px; padding-top: 6px; }
+  
+  /* SEL chip 列：可換行 */
+  .sel-legend { padding: 8px 10px !important; gap: 4px !important; }
+  .sel-legend .ll { font-size: 9.5px !important; margin-right: 2px !important; }
+  .sel-chip { font-size: 10px !important; padding: 2px 7px !important; }
+  
+  /* 黃金圈：1 欄 */
+  .gc-three { gap: 10px !important; }
+  .gc-row { 
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    text-align: left !important;
+    padding: 14px 16px !important;
+  }
+  .gc-side { text-align: left !important; }
+  .gc-side .mark { font-size: 15px !important; padding: 4px 10px !important; }
+  .gc-text h3 { font-size: 14px !important; }
+  .gc-text p { font-size: 12.5px !important; }
+  
+  /* reveal 命名 */
+  .reveal-mini { padding: 18px 16px !important; }
+  .reveal-mini .big-name { font-size: 26px !important; }
+  
+  /* 四大系統：1 欄 */
+  .systems-4 { grid-template-columns: 1fr !important; gap: 10px !important; }
+  .sys-card { padding: 16px !important; }
+  .sys-card:hover { transform: none; }
+  .sys-card h3 { font-size: 14.5px !important; }
+  .sys-card p { font-size: 12px !important; }
+  
+  /* 班級頁 */
+  .class-mark { gap: 6px; }
+  .class-pill { padding: 5px 13px !important; font-size: 11.5px !important; letter-spacing: .2em !important; }
+  .class-age { padding: 5px 11px !important; font-size: 11px !important; }
+  .ab-item { padding: 11px 14px !important; font-size: 12.5px !important; grid-template-columns: 24px 1fr !important; gap: 8px !important; }
+  .ab-item .abn { font-size: 15px !important; }
+  .position-box { padding: 12px 14px !important; font-size: 12.5px !important; }
+  .info-strip { padding: 11px !important; grid-template-columns: repeat(3, 1fr) !important; gap: 4px !important; }
+  .info-strip .ic { padding: 0 4px !important; border-right-width: 0.5px !important; }
+  .info-strip .ic .l { font-size: 9.5px !important; }
+  .info-strip .ic .v { font-size: 12.5px !important; }
+  
+  /* 課堂教學模組 */
+  .modules-block { padding: 12px 14px !important; }
+  .mod { grid-template-columns: 1fr !important; gap: 2px !important; padding: 8px 0 !important; font-size: 12.5px !important; }
+  .mod-arrow { display: none !important; }
+  .mod-l { color: var(--c-warm) !important; font-size: 11.5px !important; letter-spacing: .15em !important; margin-bottom: 4px; }
+  
+  /* 課堂情境卡 */
+  .lesson-card { padding: 14px 16px !important; font-size: 13px !important; line-height: 1.8 !important; }
+  
+  /* 改變引言 */
+  .q-item { padding: 12px 14px !important; font-size: 13.5px !important; }
+  .q-item .from { font-size: 10.5px !important; }
+  
+  /* 下一步：適合對照、班級 bar 改 1 欄 */
+  .fit-2 { grid-template-columns: 1fr !important; gap: 10px !important; }
+  .fit-b { padding: 14px 16px !important; }
+  .fit-b li { font-size: 12.5px !important; }
+  .class-bar { padding: 14px 16px !important; grid-template-columns: 1fr !important; gap: 8px !important; }
+  .class-bar .cb { border-right: none !important; border-bottom: 1px dashed var(--line) !important; padding-bottom: 8px !important; }
+  .class-bar .cb:last-child { border-bottom: none !important; }
+  
+  /* CTA */
+  .cta-show { padding: 20px !important; }
+  .cta-show h3 { font-size: 17px !important; }
+  .cta-show .sub { font-size: 12.5px !important; }
+  .cta-show .btn { font-size: 13px !important; padding: 12px 18px !important; }
+  
+  /* 聯絡 */
+  .contact-line { font-size: 12px !important; }
+  
+  /* LINE 浮動鈕：縮小一點點 */
+  .gh-credit { 
+    bottom: 12px;
+    right: 12px;
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+  
+  /* 進度條更細 */
+  .scroll-progress { height: 2.5px; }
+}
+
+/* 超小螢幕（≤ 380px） */
+@media (max-width: 380px) {
+  h1.big { font-size: 22px !important; }
+  .class-quote h1 { font-size: 20px !important; }
+  h2.med { font-size: 17px !important; }
+  .nav-pill { font-size: 10px !important; padding: 6px 9px !important; min-height: 28px; }
+  .reveal-mini .big-name { font-size: 22px !important; }
 }
 
 </style>
@@ -575,7 +712,6 @@ html { scroll-behavior: smooth; }
   <button class="nav-pill" data-target="#p4" aria-label="跳至 四大系統">四大系統</button>
   <button class="nav-pill" data-target="#p5" aria-label="跳至 全人測評">全人測評</button>
   <button class="nav-pill" data-target="#p6" aria-label="跳至 覺知 SEL">覺知 SEL</button>
-  <button class="nav-pill" data-target="#p9" aria-label="跳至 STEAM-R">STEAM-R</button>
   <button class="nav-pill" data-target="#p12" aria-label="跳至 智庫團隊">智庫團隊</button>
 </nav>
 
