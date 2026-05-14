@@ -97,8 +97,6 @@ b{font-weight:700}
 }
 .nav-pill:hover{background:var(--warm);color:#fff}
 .nav-pill.active{background:var(--pine);color:#fff}
-.nav-pill.cta{background:var(--gold-light);color:#8a6818}
-.nav-pill.cta.active,.nav-pill.cta:hover{background:var(--gold);color:#fff}
 
 .line-fab{
   position:fixed;
@@ -124,6 +122,7 @@ b{font-weight:700}
 .deck{max-width:var(--maxw);margin:0 auto;padding:0 14px}
 .slide{
   position:relative;
+  scroll-margin-top:calc(var(--safe-t) + 64px);
   background:var(--paper);
   border-radius:var(--radius);
   padding:30px 20px;
@@ -580,12 +579,11 @@ p.lede + p.lede{margin-top:14px}
 <div class="scroll-progress" aria-hidden="true"></div>
 
 <nav class="side-nav" aria-label="頁面導航">
-  <button class="nav-pill" data-target="#p2">共鳴</button>
-  <button class="nav-pill" data-target="#p3">覺知</button>
-  <button class="nav-pill" data-target="#p4">系統</button>
-  <button class="nav-pill" data-target="#p6">班級</button>
-  <button class="nav-pill" data-target="#p12">智庫</button>
-  <button class="nav-pill cta" data-target="#p13">LINE</button>
+  <button class="nav-pill" data-target="#p3" aria-label="跳至 什麼是「覺知」">什麼是「覺知」</button>
+  <button class="nav-pill" data-target="#p4" aria-label="跳至 四大系統">四大系統</button>
+  <button class="nav-pill" data-target="#p5" aria-label="跳至 全人測評">全人測評</button>
+  <button class="nav-pill" data-target="#p6" aria-label="跳至 覺知 SEL">覺知 SEL</button>
+  <button class="nav-pill" data-target="#p12" aria-label="跳至 智庫團隊">智庫團隊</button>
 </nav>
 
 <main class="deck">
