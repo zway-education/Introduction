@@ -1,0 +1,268 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<title>成大一日大學生 60 秒宣傳片（動態版）</title>
+<style>
+@font-face{font-family:"NSerif";src:url("fonts/NotoSerifTC-VF.ttf");font-weight:100 900}
+@font-face{font-family:"NSans";src:url("fonts/NotoSansTC-VF.ttf");font-weight:100 900}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0b1626;font-family:"NSans";color:#fff}
+#stage{position:absolute;inset:0;overflow:hidden}
+.sc{position:absolute;inset:0;overflow:hidden;display:none;background:radial-gradient(ellipse 120% 80% at 50% 30%,#17325a 0%,#0e1f38 55%,#08111f 100%)}
+.sc::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(140,190,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(140,190,255,.07) 1px,transparent 1px),linear-gradient(rgba(140,190,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(140,190,255,.035) 1px,transparent 1px);background-size:216px 216px,216px 216px,54px 54px,54px 54px;background-position:0 0,0 0,0 0,0 0}
+.edge{position:absolute;z-index:40;background:#7fd4ff;box-shadow:0 0 0 1px rgba(127,212,255,.3)}
+.grain{position:absolute;inset:0;background:url(img/promo/grain.jpg);background-size:512px;mix-blend-mode:overlay;opacity:.10;pointer-events:none;z-index:60}
+.frame{position:absolute;inset:34px;border:1.5px solid rgba(160,205,255,.35);pointer-events:none;z-index:58}
+.r{opacity:0}
+svg.ln{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none;overflow:visible}
+svg.ln path,svg.ln line,svg.ln rect{fill:none;stroke:#7fd4ff;stroke-width:1.5}
+svg.ln text{fill:#7fd4ff;font:500 22px "NSans";letter-spacing:.1em}
+/* LOGO 列 */
+#org{position:absolute;left:72px;right:72px;top:1716px;height:112px;z-index:55;display:flex;justify-content:center;align-items:center;gap:16px;font:600 28px/1 "NSans";letter-spacing:.06em;color:#fff}
+#org::before{content:"";position:absolute;left:0;right:0;top:0;height:1.5px;background:rgba(160,205,255,.45);transform-origin:0 50%;transform:scaleX(var(--ln,0))}
+#org .lg{position:relative;width:76px;height:76px;flex:none;border-radius:50%;background:#fff}
+#org .lg svg,#org .lg img{position:absolute;inset:4px;width:68px;height:68px;overflow:visible}
+#org .lg img{opacity:0}
+#org .lg .dot,#org .lg .head,#org .lg .seal{transform-box:fill-box;transform-origin:center}
+#org span{margin-right:34px;opacity:0;white-space:nowrap}
+#org span:last-child{margin-right:0}
+/* 封面 */
+#c0 .strip{position:absolute;top:150px;width:196px;height:640px;overflow:hidden}
+#c0 .strip canvas{display:block;width:196px;height:640px}
+#c0 .k{position:absolute;left:0;right:0;top:900px;text-align:center;font:700 34px/1 "NSans";letter-spacing:.5em;color:#7fd4ff}
+#c0 h1{position:absolute;left:0;right:0;top:968px;margin:0;text-align:center;font:900 150px/1 "NSerif";letter-spacing:.03em;white-space:nowrap}
+#c0 .slg{position:absolute;left:0;right:0;top:1250px;text-align:center;font:700 72px/1.42 "NSerif";letter-spacing:.06em;color:#FFD23F}
+/* 能力句 */
+#c1 .l{position:absolute;left:90px;white-space:nowrap;font-family:"NSerif";font-weight:900}
+#c1 .mt{position:absolute;left:72px;width:936px;height:96px}
+#c1 .mt svg{width:100%;height:100%;display:block;overflow:visible}
+.m{transform-box:fill-box;transform-origin:center}
+/* 主題 */
+.p .img{position:absolute;left:0;top:0;width:1080px;height:1120px}
+.p .tag{position:absolute;right:72px;top:96px;text-align:right;font:600 28px/1.5 "NSans";letter-spacing:.14em;color:#fff;background:rgba(8,17,31,.72);padding:12px 24px;border:1.5px solid rgba(127,212,255,.6)}
+.p .tag b{display:block;font:700 38px/1.3 "NSerif";letter-spacing:.1em}
+.p .txt{position:absolute;left:72px;right:72px;top:1150px}
+.p .bar{width:160px;height:10px;background:var(--acc);transform-origin:0 50%;margin-bottom:24px}
+.p .title{font:900 140px/1.06 "NSerif";letter-spacing:.03em;white-space:nowrap}
+.p .title.s{font-size:112px}
+.p .title span{display:inline-block}
+.p .sub{margin-top:22px;font:700 52px/1.3 "NSans";color:var(--acc);letter-spacing:.04em}
+.p .why{margin-top:12px;font:500 42px/1.45 "NSans";color:rgba(255,255,255,.92)}
+.p .bill{position:relative;margin-top:24px;padding:14px 0;font:600 28px/1.45 "NSans";letter-spacing:.06em;color:#cfe6ff}
+.p .bill span{font-weight:400;opacity:.8}
+.p .bill::before{content:"";position:absolute;left:0;top:0;height:1.5px;width:100%;background:#7fd4ff;transform-origin:0 50%;transform:scaleX(var(--ln,0))}
+/* 一天 */
+#c7 .hd{position:absolute;left:96px;right:72px;top:150px;font:700 58px/1.2 "NSerif";letter-spacing:.06em;padding-bottom:26px;color:#7fd4ff}
+#c7 .hd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#7fd4ff;transform-origin:0 50%;transform:scaleX(var(--ln,0))}
+#c7 .big{position:absolute;left:90px;font:900 200px/1 "NSerif";color:transparent;-webkit-text-stroke:3px #fff}
+#c7 .it{position:absolute;left:96px;display:flex;align-items:center;gap:28px;font:900 78px/1 "NSerif";white-space:nowrap}
+#c7 .it b{width:20px;height:80px;background:var(--c);flex:none}
+#c7 .dt{position:absolute;left:96px;right:72px;top:1460px;font:600 46px/1.55 "NSans";padding-top:26px;color:#cfe6ff}
+#c7 .dt::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:#7fd4ff;transform-origin:0 50%;transform:scaleX(var(--ln,0))}
+/* 價值 */
+#c8 .idea{position:absolute;left:0;right:0;top:820px;text-align:center;font:900 72px/1 "NSerif";white-space:nowrap}
+#c8 .tags{position:absolute;left:60px;right:60px;top:960px;display:flex;flex-wrap:wrap;justify-content:center;gap:18px}
+#c8 .tags span{padding:14px 30px;border:2px solid #7fd4ff;border-radius:44px;font:700 40px/1 "NSans";letter-spacing:.12em}
+#c8 .tags span i{font-style:normal;color:#FFD23F;margin-left:10px;font-family:"NSerif"}
+#c8 .fut{position:absolute;left:0;right:0;top:1250px;text-align:center;font:700 66px/1 "NSerif";letter-spacing:.1em;color:#FFD23F}
+/* 報名卡 */
+#c9{text-align:center}
+#c9 .k{position:absolute;left:0;right:0;top:220px;font:700 34px/1 "NSans";letter-spacing:.5em;color:#7fd4ff}
+#c9 h1{position:absolute;left:0;right:0;top:286px;margin:0;font:900 136px/1 "NSerif";letter-spacing:.03em;white-space:nowrap}
+#c9 .slg{position:absolute;left:0;right:0;top:470px;font:700 50px/1 "NSerif";letter-spacing:.06em;color:#FFD23F}
+#c9 .info{position:absolute;left:96px;right:96px;top:600px;font:700 46px/1.6 "NSans"}
+#c9 .info small{display:block;font:500 34px/1.7 "NSans";color:#cfe6ff}
+#c9 .qr{position:absolute;left:370px;top:1130px;width:340px;height:340px;padding:18px;background:#fff;border-radius:14px}
+#c9 .qr img{width:100%;height:100%;display:block;image-rendering:pixelated}
+</style></head><body>
+<div id="stage">
+
+<div class="sc" id="c0"><div class="strips"></div>
+ <svg class="ln" id="dim0"><path pathLength="1" d="M90 940 H990"/><path pathLength="1" d="M90 1150 H990"/><path pathLength="1" d="M90 925 V1165"/><path pathLength="1" d="M990 925 V1165"/><path pathLength="1" d="M60 120 H1020"/><path pathLength="1" d="M60 820 H1020"/></svg>
+ <div class="k">2026・建築與設計類</div><h1>成大一日大學生</h1>
+ <div class="slg r">從探索瞭解學系<br>找到學習的動機</div></div>
+
+<div class="sc" id="c1">
+ <div class="l r" style="top:230px;font-size:84px">未來需要的，</div>
+ <div class="l r" style="top:350px;font-size:84px">不只是單一能力，</div>
+ <div class="l r" style="top:520px;font-size:150px;color:#FFD23F">而是跨域整合</div>
+ <div class="l r" style="top:710px;font-size:84px">與解決真實問題的能力。</div>
+ <div class="mts"></div></div>
+
+<div id="levels"></div>
+
+<div class="sc" id="c7">
+ <svg class="ln" id="tl7"><path pathLength="1" d="M60 300 V1420" style="stroke-width:3"/></svg>
+ <div class="hd r">6 小時沉浸式學職涯任務</div>
+ <div class="big r" style="top:300px">上午</div>
+ <div class="it r" style="top:530px;--c:#FF6B57"><b></b>主題任務啟動</div>
+ <div class="it r" style="top:640px;--c:#F2A65A"><b></b>成大校園定向探索</div>
+ <div class="big r" style="top:800px">下午</div>
+ <div class="it r" style="top:1030px;--c:#7FB2FF"><b></b>學群探索</div>
+ <div class="it r" style="top:1140px;--c:#7fd4ff"><b></b>任務解鎖</div>
+ <div class="it r" style="top:1250px;--c:#FF4D4D"><b></b>成果挑戰</div>
+ <div class="dt r">2026年10月25日（日）09:00－16:30<br>國立成功大學／自強校區航太系館</div></div>
+
+<div class="sc" id="c8">
+ <svg class="ln" id="rays"></svg>
+ <div class="idea r">帶著孩子找到目標，適性適所</div>
+ <div class="tags"><span class="r">合作</span><span class="r">溝通</span><span class="r">思辨</span><span class="r">創造<i>4C</i></span><span class="r">自我覺察<i>SEL</i></span></div>
+ <div class="fut r">空間・人・社會・更好的未來</div></div>
+
+<div class="sc" id="c9">
+ <svg class="ln" id="tb9"><path pathLength="1" d="M60 170 H1020 V1560 H60 Z"/><path pathLength="1" d="M60 570 H1020"/><path pathLength="1" d="M60 1080 H1020"/></svg>
+ <div class="k r">2026・建築與設計類</div><h1 class="r">成大一日大學生</h1>
+ <div class="slg r">從探索瞭解學系，找到學習的動機</div>
+ <div class="info r">2026年10月25日（日）<br>09:00－16:30（08:30 開放報到）<br>國立成功大學／自強校區航太系館<small>對象｜國中、高中學生　費用｜每人每梯次 2,800 元<br>活動洽詢｜07-269-3525</small></div>
+ <div class="qr r"><img src="img/promo/qr_signup.png"></div></div>
+
+<div class="edge" id="edge"></div>
+<div id="org">
+ <div class="lg cs"><svg viewBox="44.5 58.5 440 440"><defs><linearGradient id="gj" gradientUnits="userSpaceOnUse" x1="90" y1="70" x2="440" y2="490"><stop offset="0" stop-color="#C0266F"/><stop offset=".5" stop-color="#E07A74"/><stop offset="1" stop-color="#F6B23E"/></linearGradient></defs>
+  <circle class="dot" cx="263" cy="284" r="47" fill="#F5CF7C"/><circle class="ring" cx="264.5" cy="278.5" r="178.75" fill="none" stroke="url(#gj)" stroke-width="81.5" pathLength="1" transform="rotate(-90 264.5 278.5)"/><circle class="head" cx="264.5" cy="97" r="79" fill="#C0266F"/></svg><img src="img/promo/logo/cseca.png"></div>
+ <span>中華覺知教育關懷協會</span>
+ <div class="lg nk"><svg viewBox="0 0 1431 1430"><circle class="seal" cx="715" cy="714.5" r="715" fill="#981E25"/><path class="emb" pathLength="1" d="__EMB__" fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width="6"/></svg><img src="img/promo/logo/ncku_eitec.png"></div>
+ <span>成大能源產業人才教育中心</span>
+</div>
+<div class="frame"></div><div class="grain"></div>
+</div>
+<script>
+// 主題：圖、亮色（深底用）、主題名、主題句、理念句、學系、職涯、焦點(v)、名作元素
+const L=[
+["a1","#FF6B57","生活問題|行動方案","共同友善的居住空間","使用者的需求，<br>是空間設計的起點。","成大建築學系","建築師・室內設計師・無障礙空間規劃師",.50,"swatch"],
+["a2","#F2A65A","永續城市設計","在有限空間中取捨所需機能","城市規劃需要回應生活需求，<br>也需要在有限資源中取捨。","成大都市計劃學系","都市規劃師・景觀設計師・交通規劃師",.55,"block"],
+["a3","#7FB2FF","跨域議題攻防","永續建築","透過測試改進遮陽設計，<br>兼顧使用舒適與自然採光。","成大建築學系","建築師・綠建築顧問・照明設計師",.38,"louver"],
+["a4","#FFD23F","AI 實務與|設計思維","AI 與未來設計","從生活問題提出改造，<br>檢查構想是否回應使用者。","成大工業設計學系","產品設計師・使用者體驗設計師",.45,"bauhaus"],
+["a5","#FF4D4D","團隊合作與|成果發表","做出能自行站立的承重作品","透過合作、測試與修改，<br>把構想變成能承重的作品。","成大建築學系・工業設計學系","建築師・結構工程師・土木工程師・產品設計師",.55,"truss"]];
+const SW=["#B3362B","#C89A54","#3F5B8F","#5E7B5A","#D9D4C7"];
+const MOTIF=[
+`<svg viewBox="0 0 936 96"><g class="m"><rect x="0" y="12" width="168" height="72" fill="#FF6B57"/></g><g class="m"><rect x="192" y="12" width="168" height="72" fill="#C89A54"/></g><g class="m"><rect x="384" y="12" width="168" height="72" fill="#5d82c9"/></g><g class="m"><rect x="576" y="12" width="168" height="72" fill="#7da078"/></g><g class="m"><rect x="768" y="12" width="168" height="72" fill="#D9D4C7"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="none" stroke="#F2A65A" stroke-width="5">`+[0,1,2,3,4,5,6].map(j=>`<path class="m d" pathLength="1" d="M${22+j*128} 6 H${90+j*128} L${112+j*128} 28 V68 L${90+j*128} 90 H${22+j*128} L${j*128} 68 V28 Z"/>`).join("")+`</g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="#7FB2FF">`+Array.from({length:21},(_,i)=>`<g class="m f"><rect x="${i*44.6}" y="0" width="18" height="96"/></g>`).join("")+`</g></svg>`,
+`<svg viewBox="0 0 936 96"><g class="m"><circle cx="48" cy="48" r="46" fill="#E04A3A"/></g><g class="m"><path d="M130 94 L190 2 L250 94 Z" fill="#FFD23F"/></g><g class="m"><rect x="284" y="2" width="92" height="92" fill="#3b78d0"/></g><g class="m"><path d="M420 14 H936 M420 48 H936 M420 82 H936" stroke="#fff" stroke-width="5"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="none" stroke="#cfe6ff" stroke-width="5" stroke-linejoin="round"><path class="m d" pathLength="1" d="M0 90 H560"/><path class="m d" pathLength="1" d="M0 6 H560"/><path class="m d" pathLength="1" d="M0 90 L56 6 L112 90 L168 6 L224 90 L280 6 L336 90 L392 6 L448 90 L504 6 L560 90"/></g><g class="m"><rect x="608" y="4" width="328" height="16" fill="#2F6DB5"/></g><g class="m"><rect x="608" y="28" width="328" height="16" fill="#3E9B5B"/></g><g class="m"><rect x="608" y="52" width="328" height="16" fill="#F2C319"/></g><g class="m"><rect x="608" y="76" width="328" height="16" fill="#D7262B"/></g></svg>`];
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const cl=x=>Math.max(0,Math.min(1,x)), eo=x=>1-Math.pow(1-cl(x),3), eo5=x=>1-Math.pow(1-cl(x),5), sm=x=>{x=cl(x);return x*x*(3-2*x)};
+const back=x=>{x=cl(x);const c1=1.4,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lv=$("#levels");
+L.forEach(([img,acc,t,sub,why,dept,job],i)=>{
+  const two=t.includes("|"), lines=t.split("|").map(l=>[...l].map(c=>`<span>${c===" "?"&nbsp;":c}</span>`).join("")).join("<br>");
+  lv.insertAdjacentHTML("beforeend",`<div class="sc p" id="L${i}" style="--acc:${acc}">
+  <canvas class="img" width="1080" height="1120"></canvas><svg class="ln sh"></svg>
+  <div class="tag r">成大一日大學生<b>建築與設計類</b></div>
+  <div class="txt"><div class="bar"></div><div class="title${two?" s":""}">${lines}</div>
+  <div class="sub r">${sub}</div><div class="why r">${why}</div>
+  <div class="bill r"><div>${dept}</div><div><span>職涯探索</span>　${job}</div></div></div></div>`);
+});
+L.forEach((l,i)=>$("#c0 .strips").insertAdjacentHTML("beforeend",`<div class="strip" style="left:${72+i*190}px"><canvas width="392" height="1280"></canvas></div>`));
+L.forEach((_,i)=>$("#c1 .mts").insertAdjacentHTML("beforeend",`<div class="mt" style="top:${960+i*128}px">${MOTIF[i]}</div>`));
+// 價值：五條主題色線收向中心（找到目標）
+$("#rays").innerHTML=L.map((l,i)=>{const x=108+i*216;return `<path pathLength="1" d="M${x} 140 L540 700" style="stroke:${l[1]};stroke-width:4"/>`}).join("")+`<circle cx="540" cy="700" r="0" style="fill:#FFD23F;stroke:none" id="tgt"/><circle cx="540" cy="700" r="0" style="fill:none;stroke:#FFD23F;stroke-width:3" id="tgt2"/>`;
+
+const loadImg=u=>new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.src=u});
+let IM;
+// ---------- 時間軸 ----------
+const T={c0:0,c1:4.5,L:[10,16,22,28,34],c7:40,c8:45.5,c9:50.5}, TOTAL=60, IN=.55;
+const ENT={c1:"down",L0:"right",L1:"up",L2:"split",L3:"left",L4:"diag",c7:"down",c8:"split",c9:"up"};
+window.__PENCIL=[T.c1,...T.L,T.c7,T.c8,T.c9].map(a=>+(a-IN).toFixed(2));
+const edge=$("#edge");
+function clip(el,kind,e){ // 新的一幕用尺的邊緣掃進來
+  const s=sm(e); let cp, E={display:"none"};
+  if(kind==="down"){cp=`inset(0 0 ${(1-s)*100}% 0)`; E={left:0,top:s*1920-2,width:1080,height:4};}
+  else if(kind==="up"){cp=`inset(${(1-s)*100}% 0 0 0)`; E={left:0,top:(1-s)*1920-2,width:1080,height:4};}
+  else if(kind==="right"){cp=`inset(0 ${(1-s)*100}% 0 0)`; E={left:s*1080-2,top:0,width:4,height:1920};}
+  else if(kind==="left"){cp=`inset(0 0 0 ${(1-s)*100}%)`; E={left:(1-s)*1080-2,top:0,width:4,height:1920};}
+  else if(kind==="split"){cp=`inset(${(1-s)*50}% 0 ${(1-s)*50}% 0)`; E={left:0,top:(1-s)*960-2,width:1080,height:4};}
+  else if(kind==="diag"){const d=s*3000; cp=`polygon(0 0,${d}px 0,${d-1920}px 1920px,0 1920px)`; E={left:d-960-2,top:-200,width:4,height:2400,rot:26.6};}
+  el.style.clipPath=e>=1?"none":cp;
+  if(e<1&&E.width){ edge.style.display="block"; Object.assign(edge.style,{left:E.left+"px",top:E.top+"px",width:E.width+"px",height:E.height+"px",transform:E.rot?`rotate(${E.rot}deg)`:"none"}); }
+}
+function scene(el,id,a,end,t,body){
+  const lt=t-a, vis=t>=a-IN&&t<end; el.style.display=vis?"block":"none"; if(!vis) return;
+  el.style.zIndex=Math.round(a*10)+1;
+  if(ENT[id]) clip(el,ENT[id],(lt+IN)/IN); body(Math.max(lt,-IN));
+}
+const fadeUp=(el,k,d=30)=>{el.style.opacity=k; el.style.transform=`translateY(${(1-k)*d}px)`};
+const slideIn=(el,k,d=-80)=>{el.style.opacity=k>0?1:0; el.style.clipPath=`inset(0 ${(1-k)*100}% 0 0)`; el.style.transform=`translateX(${(1-k)*d*-0}px)`};
+function draw(svg,t,step=.8,gap=.12){ $$("path",svg).forEach((pa,j)=>{pa.style.strokeDasharray="1";pa.style.strokeDashoffset=1-eo((t-j*gap)/step);}); }
+function mot(root,t0,t){ $$(".m",root).forEach((el,j)=>{ const k=eo5((t-t0-j*.06)/.5);
+  if(el.classList.contains("d")){el.style.strokeDasharray="1";el.style.strokeDashoffset=1-k;el.style.opacity=k>0?1:0;}
+  else{el.style.opacity=k;el.style.transform=el.classList.contains("f")?`scaleY(${k})`:`translateX(${(1-k)*-60}px)`;} }); }
+function renderOrg(t){
+  const cs=$("#org .cs svg"); $(".dot",cs).style.transform=`scale(${back((t-.1)/.5)})`;
+  const ring=$(".ring",cs); ring.style.strokeDasharray="1"; ring.style.strokeDashoffset=1-eo((t-.3)/1.1);
+  $(".head",cs).style.transform=`scale(${back((t-1.2)/.5)})`;
+  const nk=$("#org .nk svg"), kn=eo((t-.4)/.6); $(".seal",nk).style.transform=`scale(${(1.5-.5*kn)*kn}) rotate(${-8+8*kn}deg)`;
+  const emb=$(".emb",nk), ke=eo((t-.8)/1.0); emb.style.strokeDasharray="1"; emb.style.strokeDashoffset=1-ke; emb.style.strokeOpacity=ke>0?1:0; emb.style.fillOpacity=eo((t-1.5)/.5);
+  const sw=eo((t-2.0)/.5); $$("#org .lg img").forEach(im=>im.style.opacity=sw); $$("#org .lg svg").forEach(s=>s.style.opacity=1-sw);
+  $$("#org span").forEach((s,j)=>s.style.opacity=eo((t-.5-j*.3)/.7));
+  $("#org").style.setProperty("--ln",eo(t/1.2));
+}
+// 主圖從名作元素裡長出來
+function cover(g,im,v,W,H,s=1){ const sw=1080, sh=1620, r=Math.max(W/sw,H/sh)*s, dw=sw*r, dh=sh*r; const y=Math.max(H-dh,Math.min(0,H/2-v*dh)); g.drawImage(im,(W-dw)/2,y,dw,dh); }
+function reveal(i,t){
+  const l=L[i], cv=$(`#L${i} .img`), g=cv.getContext("2d"), W=1080, H=1120, kind=l[8];
+  g.clearRect(0,0,W,H); const s=1.06-.06*eo(t/5.5);
+  const full=()=>{cover(g,IM[i],l[7],W,H,s)};
+  g.save(); g.beginPath(); let done=false, tint=null;
+  if(kind==="swatch"){ for(let j=0;j<5;j++){ const k=eo5((t-j*.12)/.7); g.rect(j*216,H*(1-k),216,H*k);} tint=j=>SW[j]; }
+  else if(kind==="block"){ const cw=360,ch=280; for(let r=0;r<4;r++)for(let c=0;c<3;c++){ const k=eo5((t-(r+c)*.09)/.7)*1.45, x=c*cw+cw/2, y=r*ch+ch/2, w=cw*k/2, h=ch*k/2, ch2=Math.min(w,h)*.3; if(k<=0)continue; g.moveTo(x-w+ch2,y-h); g.lineTo(x+w-ch2,y-h); g.lineTo(x+w,y-h+ch2); g.lineTo(x+w,y+h-ch2); g.lineTo(x+w-ch2,y+h); g.lineTo(x-w+ch2,y+h); g.lineTo(x-w,y+h-ch2); g.lineTo(x-w,y-h+ch2); g.closePath(); } }
+  else if(kind==="louver"){ const n=14, sh=H/n; for(let j=0;j<n;j++){ const k=eo5((t-j*.05)/.6), h=sh*k; g.rect(0,j*sh+(sh-h)/2,W,h);} }
+  else if(kind==="bauhaus"){ const k1=eo5(t/.7), k2=eo5((t-.15)/.7), k3=eo5((t-.3)/.7), kf=eo5((t-.9)/.7);
+    g.moveTo(200+800*k1,560); g.arc(200,560,800*k1*.42+1,0,Math.PI*2); const th=700*k2; g.moveTo(540,560-th); g.lineTo(540+th,560+th*.8); g.lineTo(540-th,560+th*.8); g.closePath();
+    const sq=420*k3; g.rect(880-sq,560-sq,sq*2,sq*2); if(kf>0) g.rect(0,H/2*(1-kf),W,H*kf); }
+  else if(kind==="truss"){ const n=8, w=W/n*2; for(let j=0;j<n*2+1;j++){ const k=eo5((t-j*.04)/.6), up=j%2===0, x=j*W/n/2*2/2; const cx=j*(W/(n)) /1; }
+    for(let j=0;j<=n*2;j++){ const k=eo5((t-j*.035)/.6); if(k<=0)continue; const x0=(j-1)*W/(n*2)*2/1/2*1, base=W/n; const xc=j*base/2, up=j%2===0; const hh=H*k;
+      if(up){ g.moveTo(xc-base/2*k*1.02,H); g.lineTo(xc,H-hh); g.lineTo(xc+base/2*k*1.02,H);} else { g.moveTo(xc-base/2*k*1.02,0); g.lineTo(xc,hh); g.lineTo(xc+base/2*k*1.02,0);} g.closePath(); }
+    const kf=eo5((t-.8)/.6); if(kf>0) g.rect(0,0,W,H*kf); }
+  g.clip(); full(); g.restore();
+  if(tint){ for(let j=0;j<5;j++){ const k=eo5((t-j*.12)/.7), a=1-eo((t-.55-j*.12)/.6); if(a<=0||k<=0)continue; g.globalAlpha=a; g.fillStyle=tint(j); g.fillRect(j*216,H*(1-k),216,H*k); g.globalAlpha=1; } }
+  // 下緣漸層接深底
+  const gr=g.createLinearGradient(0,H-360,0,H); gr.addColorStop(0,"rgba(11,22,38,0)"); gr.addColorStop(1,"rgba(11,22,38,1)"); g.fillStyle=gr; g.fillRect(0,H-360,W,360);
+  const gt=g.createLinearGradient(0,0,0,240); gt.addColorStop(0,"rgba(11,22,38,.55)"); gt.addColorStop(1,"rgba(11,22,38,0)"); g.fillStyle=gt; g.fillRect(0,0,W,240);
+}
+function r0(t){
+  $$("#c0 .strip").forEach((st,i)=>{ const k=eo5((t-.2-i*.1)/.8); st.style.clipPath=`inset(${(1-k)*100}% 0 0 0)`;
+    const cv=$("canvas",st), g=cv.getContext("2d"); g.clearRect(0,0,392,1280); const sc=1.18-.18*eo((t-.2)/4); const im=IM[i], v=L[i][7], dw=1080*1280/1620*sc*1, dh=1280*sc; g.drawImage(im,(392-dw*1)/2,(1280-dh)/2- (v-.5)*dh*.5,dw,dh); });
+  draw($("#dim0"),t-.1,1.0,.1);
+  fadeUp($("#c0 .slg"),eo((t-1.3)/.7));
+}
+function r1(t){ $$("#c1 .l").forEach((el,j)=>slideIn(el,eo5((t-.15-j*.32)/.55))); $$("#c1 .mt").forEach((m,i)=>mot(m,1.6+i*.18,t)); }
+function rL(i,t){
+  const p=$("#L"+i); reveal(i,Math.max(0,t));
+  $(".tag",p).style.opacity=eo((t-.8)/.5);
+  $(".bar",p).style.transform=`scaleX(${eo5((t-.2)/.5)})`;
+  $$(".title span",p).forEach((s,j)=>{const k=eo5((t-.3-j*.05)/.55); s.style.opacity=k; s.style.transform=`translateY(${(1-k)*70}px)`;});
+  fadeUp($(".sub",p),eo5((t-.9)/.5)); fadeUp($(".why",p),eo5((t-1.2)/.6));
+  const bl=$(".bill",p); bl.style.setProperty("--ln",eo((t-1.5)/.7)); bl.style.opacity=eo((t-1.6)/.6);
+}
+function r7(t){ const s=$("#c7"); draw($("#tl7"),t,1.2);
+  const hd=$(".hd",s); fadeUp(hd,eo5(t/.5)); hd.style.setProperty("--ln",eo((t-.1)/.6));
+  const bg=$$(".big",s), it=$$(".it",s);
+  slideIn(bg[0],eo5((t-.15)/.5)); slideIn(it[0],eo5((t-.4)/.45)); slideIn(it[1],eo5((t-.55)/.45));
+  slideIn(bg[1],eo5((t-.9)/.5)); slideIn(it[2],eo5((t-1.15)/.45)); slideIn(it[3],eo5((t-1.3)/.45)); slideIn(it[4],eo5((t-1.45)/.45));
+  const dt=$(".dt",s); fadeUp(dt,eo((t-1.7)/.6)); dt.style.setProperty("--ln",eo((t-1.6)/.7));
+}
+function r8(t){ draw($("#rays"),t,.9,.1); const k=back((t-.8)/.5); $("#tgt").setAttribute("r",Math.max(0,18*k)); $("#tgt2").setAttribute("r",Math.max(0,46*eo((t-.9)/.6)));
+  fadeUp($("#c8 .idea"),eo5((t-.6)/.6)); $$("#c8 .tags span").forEach((s,j)=>{const k=back((t-1.1-j*.1)/.45); s.style.opacity=cl((t-1.1-j*.1)/.2); s.style.transform=`scale(${.6+.4*k})`;});
+  fadeUp($("#c8 .fut"),eo5((t-1.8)/.6));
+}
+function r9(t){ const s=$("#c9"); draw($("#tb9"),t,.8,.25);
+  fadeUp($(".k",s),eo((t-.2)/.6)); fadeUp($("h1",s),eo5((t-.3)/.7),50); fadeUp($(".slg",s),eo((t-.7)/.6));
+  fadeUp($(".info",s),eo((t-1.0)/.7)); const q=$(".qr",s), k=back((t-1.3)/.6); q.style.opacity=cl((t-1.3)/.3); q.style.transform=`scale(${.7+.3*k})`;
+}
+window.__render=function(t){
+  edge.style.display="none"; renderOrg(t);
+  scene($("#c0"),"c0",0,T.c1,t,r0);
+  scene($("#c1"),"c1",T.c1,T.L[0],t,r1);
+  L.forEach((_,i)=>scene($("#L"+i),"L"+i,T.L[i],i<4?T.L[i+1]:T.c7,t,lt=>rL(i,lt)));
+  scene($("#c7"),"c7",T.c7,T.c8,t,r7);
+  scene($("#c8"),"c8",T.c8,T.c9,t,r8);
+  scene($("#c9"),"c9",T.c9,TOTAL+1,t,r9);
+};
+window.__TOTAL=TOTAL;
+(async()=>{
+  IM=await Promise.all(L.map(l=>loadImg(`img/promo/${l[0]}.jpg`)));
+  await Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>i.onload=i.onerror=r)));
+  await document.fonts.load('900 100px "NSerif"'); await document.fonts.load('500 40px "NSans"'); await document.fonts.ready;
+  window.__ready=true;
+  if(!location.search.includes("rec=1")){let s=performance.now();(function f(){__render(((performance.now()-s)/1000)%TOTAL);requestAnimationFrame(f)})()}
+})();
+</script></body></html>
