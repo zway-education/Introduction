@@ -59,7 +59,8 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#f9f6f0
 .p .bill::before,.p .bill::after{content:"";position:absolute;left:0;height:1.5px;width:100%;background:var(--ink);transform:scaleX(var(--ln,0))}
 .p .bill::before{top:0;transform-origin:0 50%}.p .bill::after{bottom:0;transform-origin:100% 50%}
 /* ---- 4 一天 ---- */
-#s7{background:#e8ecf1;background-image:linear-gradient(rgba(28,42,68,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(28,42,68,.06) 1px,transparent 1px);background-size:54px 54px;background-position:27px 27px;color:#1c2a44}
+#s7{color:#1c2a44}
+#s7 .ct{background:#e8ecf1;background-image:linear-gradient(rgba(28,42,68,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(28,42,68,.06) 1px,transparent 1px);background-size:54px 54px;background-position:27px 27px}
 #s7 .hd{position:absolute;left:96px;right:72px;top:150px;font:700 58px/1.2 "NSerif";letter-spacing:.06em;padding-bottom:26px}
 #s7 .hd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:#1c2a44;transform-origin:0 50%;transform:scaleX(var(--ln,0))}
 #s7 .big{position:absolute;left:96px;font:900 190px/1 "NSerif"}
@@ -160,7 +161,7 @@ const back=x=>{x=cl(x);const c1=1.2,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.
 const lv=$("#levels");
 L.forEach(([img,acc,bg,ink,t,sub,why,dept,job],i)=>{
   const two=t.includes("|"), lines=t.split("|").map(l=>[...l].map(c=>`<span>${c===" "?"&nbsp;":c}</span>`).join("")).join("<br>");
-  lv.insertAdjacentHTML("beforeend",`<div class="sc p" id="L${i}" style="--acc:${acc};--bg:${bg};--ink:${ink};background:${bg}"><div class="ct">
+  lv.insertAdjacentHTML("beforeend",`<div class="sc p" id="L${i}" style="--acc:${acc};--bg:${bg};--ink:${ink}"><div class="ct" style="background:${bg}">
   <canvas class="img" width="1080" height="1920"></canvas><div class="fade"></div><canvas class="sheet" width="1080" height="1920"></canvas>
   <div class="code r">2026</div><div class="ev r">成大一日大學生<b>建築與設計類</b></div>
   <div class="txt"><div class="motif">${MOTIF[i]}</div><div class="bar"></div><div class="title${two?" s":""}">${lines}</div>
