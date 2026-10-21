@@ -1,0 +1,306 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<title>成大一日大學生 60 秒宣傳片（直式）</title>
+<style>
+@font-face{font-family:"NSerif";src:url("fonts/NotoSerifTC-VF.ttf");font-weight:100 900}
+@font-face{font-family:"NSans";src:url("fonts/NotoSansTC-VF.ttf");font-weight:100 900}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#f9f6f0;font-family:"NSans";color:#2a2420}
+#stage{position:absolute;inset:0;overflow:hidden}
+.sc{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+.ct{position:absolute;inset:0}
+.wipe{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:30}
+.paper{background:#f9f6f0;background-image:linear-gradient(rgba(42,36,32,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(42,36,32,.05) 1px,transparent 1px);background-size:54px 54px;background-position:27px 27px}
+.grain{position:absolute;inset:0;background:url(img/promo/grain.jpg);background-size:512px;mix-blend-mode:multiply;opacity:.06;pointer-events:none;z-index:60}
+.frame{position:absolute;inset:34px;border:1.5px solid rgba(40,32,24,.35);pointer-events:none;z-index:58}
+.tb{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none}
+.tb path{fill:none;stroke:#2a2420;stroke-width:1.5}
+.r{opacity:0}
+/* ---- 下方兩單位 LOGO（全片都在） ---- */
+#org{position:absolute;left:72px;right:72px;top:1716px;height:112px;z-index:55;display:flex;justify-content:center;align-items:center;gap:16px;font:600 28px/1 "NSans";letter-spacing:.06em;color:#2a2420}
+#org::before{content:"";position:absolute;left:0;right:0;top:0;height:1.5px;background:rgba(42,36,32,.4);transform-origin:0 50%;transform:scaleX(var(--ln,0))}
+#org .lg{position:relative;width:76px;height:76px;flex:none}
+#org .lg svg,#org .lg img{position:absolute;inset:0;width:76px;height:76px;overflow:visible}
+#org .lg img{opacity:0}
+#org .lg .dot,#org .lg .head,#org .lg .seal{transform-box:fill-box;transform-origin:center}
+#org span{margin-right:34px;opacity:0;white-space:nowrap}
+#org span:last-child{margin-right:0}
+/* ---- 1 封面 ---- */
+#s0 .blk{position:absolute;left:0;top:0;width:1080px;height:1010px;background:#B3362B;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:54px 54px;background-position:27px 27px}
+#s0 .card{position:absolute;left:390px;top:250px;width:300px;height:450px;background:#fff;padding:10px;box-shadow:0 28px 60px rgba(40,10,5,.35);transform-origin:50% 100%}
+#s0 .card canvas{width:300px;height:450px;display:block}
+#s0 .k{position:absolute;left:0;right:0;top:1086px;text-align:center;font:700 34px/1 "NSans";letter-spacing:.42em;color:#B3362B}
+#s0 h1{position:absolute;left:0;right:0;top:1150px;margin:0;text-align:center;font:900 136px/1 "NSerif";letter-spacing:.04em;white-space:nowrap}
+#s0 .rule{position:absolute;left:300px;width:480px;top:1340px;height:2px;background:#2a2420;transform:scaleX(0)}
+#s0 .slg{position:absolute;left:0;right:0;top:1384px;text-align:center;font:700 68px/1.42 "NSerif";letter-spacing:.06em}
+/* ---- 2 未來需要的能力 ---- */
+#s1 .a{position:absolute;left:96px;right:96px;top:250px;font:600 52px/1.4 "NSans";color:#5a4a3a;letter-spacing:.02em}
+#s1 .b{position:absolute;left:96px;right:60px;top:350px;font:900 100px/1.22 "NSerif";letter-spacing:.02em;white-space:nowrap}
+#s1 .b em{font-style:normal;color:#B3362B}
+#s1 .b small{display:block;font-size:84px}
+#s1 .mt{position:absolute;left:72px;width:936px;height:96px}
+#s1 .mt svg{width:100%;height:100%;display:block;overflow:visible}
+.m{transform-box:fill-box;transform-origin:center}
+/* ---- 3 主題 ---- */
+.p .img,.p .sheet{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.p .fade{position:absolute;left:0;top:760px;width:1080px;height:1160px;background:linear-gradient(to bottom,transparent,var(--bg) 22%)}
+.p .code{position:absolute;left:72px;top:96px;font:700 40px/1 "NSerif";letter-spacing:.28em;background:rgba(255,253,249,.94);padding:14px 22px 14px 28px;border:1.5px solid rgba(42,36,32,.35)}
+.p .ev{position:absolute;right:72px;top:96px;text-align:right;font:600 28px/1.5 "NSans";letter-spacing:.14em;background:rgba(255,253,249,.94);padding:12px 24px;border:1.5px solid rgba(42,36,32,.35)}
+.p .ev b{display:block;font:700 38px/1.3 "NSerif";letter-spacing:.1em}
+.p .txt{position:absolute;left:72px;right:72px;top:930px;z-index:20;color:var(--ink)}
+.p .motif{height:84px;margin-bottom:26px}
+.p .motif svg{width:100%;height:100%;display:block;overflow:visible}
+.p .bar{width:140px;height:8px;background:var(--acc);transform-origin:0 50%;margin-bottom:22px}
+.p .title{font:900 140px/1.08 "NSerif";letter-spacing:.03em;white-space:nowrap}
+.p .title.s{font-size:116px}
+.p .title span{display:inline-block}
+.p .sub{margin-top:26px;font:700 52px/1.3 "NSans";color:var(--acc);letter-spacing:.04em}
+.p .why{margin-top:14px;font:500 44px/1.45 "NSans";letter-spacing:.01em}
+.p .bill{position:relative;margin-top:30px;padding:16px 0;font:600 28px/1.45 "NSans";letter-spacing:.06em}
+.p .bill span{font-weight:400;opacity:.75}
+.p .bill::before,.p .bill::after{content:"";position:absolute;left:0;height:1.5px;width:100%;background:var(--ink);transform:scaleX(var(--ln,0))}
+.p .bill::before{top:0;transform-origin:0 50%}.p .bill::after{bottom:0;transform-origin:100% 50%}
+/* ---- 4 一天 ---- */
+#s7{background:#e8ecf1;background-image:linear-gradient(rgba(28,42,68,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(28,42,68,.06) 1px,transparent 1px);background-size:54px 54px;background-position:27px 27px;color:#1c2a44}
+#s7 .hd{position:absolute;left:96px;right:72px;top:150px;font:700 58px/1.2 "NSerif";letter-spacing:.06em;padding-bottom:26px}
+#s7 .hd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:#1c2a44;transform-origin:0 50%;transform:scaleX(var(--ln,0))}
+#s7 .big{position:absolute;left:96px;font:900 190px/1 "NSerif"}
+#s7 .it{position:absolute;left:96px;display:flex;align-items:center;gap:28px;font:900 76px/1 "NSerif";white-space:nowrap}
+#s7 .it b{width:20px;height:78px;background:var(--c);flex:none}
+#s7 .tl{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none}
+#s7 .tl path{fill:none;stroke:#1c2a44;stroke-width:3}
+#s7 .dt{position:absolute;left:96px;right:72px;top:1460px;font:600 46px/1.55 "NSans";letter-spacing:.02em;padding-top:26px}
+#s7 .dt::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#1c2a44;transform-origin:0 50%;transform:scaleX(var(--ln,0))}
+/* ---- 5 價值收束 ---- */
+#s8 .strip{position:absolute;top:150px;width:206px;height:700px;overflow:hidden;background:#fff}
+#s8 .strip canvas{display:block;width:206px;height:700px}
+#s8 .strip i{position:absolute;left:0;right:0;bottom:0;height:14px;background:var(--c)}
+#s8 .idea{position:absolute;left:0;right:0;top:960px;text-align:center;font:900 72px/1 "NSerif";letter-spacing:0;white-space:nowrap}
+#s8 .rule{position:absolute;left:300px;width:480px;top:1090px;height:2px;background:#2a2420;transform:scaleX(0)}
+#s8 .tags{position:absolute;left:0;right:0;top:1140px;text-align:center;font:500 36px/1 "NSans";letter-spacing:.2em;color:#4a3e32}
+#s8 .tags i{font-style:normal;font:700 30px/1 "NSerif";color:#B3362B;margin:0 6px 0 2px;letter-spacing:.08em}
+#s8 .tags b{font-weight:400;color:#b5aa9a;margin:0 14px}
+#s8 .tags span{margin:0 4px}
+#s8 .fut{position:absolute;left:0;right:0;top:1300px;text-align:center;font:700 64px/1 "NSerif";letter-spacing:.1em}
+/* ---- 6 報名卡 ---- */
+#s9{text-align:center}
+#s9 .k{position:absolute;left:0;right:0;top:250px;font:700 34px/1 "NSans";letter-spacing:.42em;color:#B3362B}
+#s9 h1{position:absolute;left:0;right:0;top:316px;margin:0;font:900 132px/1 "NSerif";letter-spacing:.04em;white-space:nowrap}
+#s9 .slg{position:absolute;left:0;right:0;top:500px;font:700 50px/1 "NSerif";letter-spacing:.06em}
+#s9 .info{position:absolute;left:96px;right:96px;top:630px;font:700 46px/1.6 "NSans";letter-spacing:.02em}
+#s9 .info small{display:block;font:500 34px/1.7 "NSans";letter-spacing:.03em;color:#3e342a}
+#s9 .qr{position:absolute;left:375px;top:1150px;width:330px;height:330px;padding:16px;background:#fff;border:1.5px solid rgba(42,36,32,.4)}
+#s9 .qr img{width:100%;height:100%;display:block;image-rendering:pixelated}
+</style></head><body>
+<div id="stage">
+
+<div class="sc" id="s0"><div class="ct paper"><div class="blk"></div><div class="cards"></div>
+ <div class="k">2026・建築與設計類</div><h1>成大一日大學生</h1><div class="rule"></div>
+ <div class="slg r">從探索瞭解學系<br>找到學習的動機</div></div><canvas class="wipe" width="1080" height="1920"></canvas></div>
+
+<div class="sc" id="s1"><div class="ct paper">
+ <div class="a r">未來需要的，不只是單一能力，</div>
+ <div class="b r">而是<em>跨域整合</em><small>與<em>解決真實問題</em>的能力。</small></div>
+ <div class="mts"></div></div><canvas class="wipe" width="1080" height="1920"></canvas></div>
+
+<div id="levels"></div>
+
+<div class="sc" id="s7"><div class="ct">
+ <svg class="tl" viewBox="0 0 1080 1920"><path pathLength="1" d="M60 300 V1420"/></svg>
+ <div class="hd r">6 小時沉浸式學職涯任務</div>
+ <div class="big r" style="top:300px">上午</div>
+ <div class="it r" style="top:520px;--c:#B3362B"><b></b>主題任務啟動</div>
+ <div class="it r" style="top:630px;--c:#C2603C"><b></b>成大校園定向探索</div>
+ <div class="big r" style="top:790px">下午</div>
+ <div class="it r" style="top:1010px;--c:#3F5B8F"><b></b>學群探索</div>
+ <div class="it r" style="top:1120px;--c:#1F56A0"><b></b>任務解鎖</div>
+ <div class="it r" style="top:1230px;--c:#D7262B"><b></b>成果挑戰</div>
+ <div class="dt r">2026年10月25日（日）09:00－16:30<br>國立成功大學／自強校區航太系館</div>
+</div><canvas class="wipe" width="1080" height="1920"></canvas></div>
+
+<div class="sc" id="s8"><div class="ct paper"><div class="strips"></div>
+ <div class="idea r">帶著孩子找到目標，適性適所</div><div class="rule"></div>
+ <div class="tags r"><span>合作</span><span>溝通</span><span>思辨</span><span>創造</span><i>4C</i><b>｜</b><span>自我覺察</span><i>SEL</i></div>
+ <div class="fut r">空間・人・社會・更好的未來</div></div><canvas class="wipe" width="1080" height="1920"></canvas></div>
+
+<div class="sc" id="s9"><div class="ct paper">
+ <svg class="tb" viewBox="0 0 1080 1920"><path pathLength="1" d="M60 196 H1020 V1560 H60 Z"/><path pathLength="1" d="M60 600 H1020"/><path pathLength="1" d="M60 1100 H1020"/></svg>
+ <div class="k r">2026・建築與設計類</div><h1 class="r">成大一日大學生</h1>
+ <div class="slg r">從探索瞭解學系，找到學習的動機</div>
+ <div class="info r">2026年10月25日（日）<br>09:00－16:30（08:30 開放報到）<br>國立成功大學／自強校區航太系館<small>對象｜國中、高中學生　費用｜每人每梯次 2,800 元<br>活動洽詢｜07-269-3525</small></div>
+ <div class="qr r"><img src="img/promo/qr_signup.png"></div>
+</div><canvas class="wipe" width="1080" height="1920"></canvas></div>
+
+<div id="org">
+ <div class="lg cs"><svg viewBox="44.5 58.5 440 440"><defs><linearGradient id="gj" gradientUnits="userSpaceOnUse" x1="90" y1="70" x2="440" y2="490"><stop offset="0" stop-color="#C0266F"/><stop offset=".5" stop-color="#E07A74"/><stop offset="1" stop-color="#F6B23E"/></linearGradient></defs>
+  <circle class="dot" cx="263" cy="284" r="47" fill="#F5CF7C"/><circle class="ring" cx="264.5" cy="278.5" r="178.75" fill="none" stroke="url(#gj)" stroke-width="81.5" pathLength="1" transform="rotate(-90 264.5 278.5)"/><circle class="head" cx="264.5" cy="97" r="79" fill="#C0266F"/></svg><img src="img/promo/logo/cseca.png"></div>
+ <span>中華覺知教育關懷協會</span>
+ <div class="lg nk"><svg viewBox="0 0 1431 1430"><circle class="seal" cx="715" cy="714.5" r="715" fill="#981E25"/><path class="emb" pathLength="1" d="__EMB__" fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width="6"/></svg><img src="img/promo/logo/ncku_eitec.png"></div>
+ <span>成大能源產業人才教育中心</span>
+</div>
+<div class="frame"></div><div class="grain"></div>
+</div>
+<script>
+// 每個主題：圖、主題色、底色、墨色、主題名、主題句、理念句、學系、職涯、焦點(v)
+const L=[
+["a1","#B3362B","#faf6ef","#2a2420","生活問題|行動方案","共同友善的居住空間","使用者的需求，<br>是空間設計的起點。","成大建築學系","建築師・室內設計師・無障礙空間規劃師",.53],
+["a2","#B5553A","#f8f4ec","#2a241f","永續城市設計","在有限空間中取捨所需機能","城市規劃需要回應生活需求，<br>也需要在有限資源中取捨。","成大都市計劃學系","都市規劃師・景觀設計師・交通規劃師",.70],
+["a3","#3F5B8F","#faf6ee","#2b241c","跨域議題攻防","永續建築","透過測試改進遮陽設計，<br>兼顧使用舒適與自然採光。","成大建築學系","建築師・綠建築顧問・照明設計師",.30],
+["a4","#1F56A0","#f9f7f2","#2a2520","AI 實務與|設計思維","AI 與未來設計","從生活問題提出改造，<br>檢查構想是否回應使用者。","成大工業設計學系","產品設計師・使用者體驗設計師",.45],
+["a5","#D7262B","#f6f6f2","#232a26","團隊合作與|成果發表","做出能自行站立的承重作品","透過合作、測試與修改，<br>把構想變成能承重的作品。","成大建築學系・工業設計學系","建築師・結構工程師・土木工程師・產品設計師",.75]];
+// 名作配色與元素：柯比意色票、巴塞隆納切角街廓、馬賽公寓遮陽板、包浩斯紅圓黃三角藍方、龐畢度桁架與管線色
+const MOTIF=[
+`<svg viewBox="0 0 936 96"><g class="m"><rect x="0" y="12" width="168" height="72" fill="#B3362B"/></g><g class="m"><rect x="192" y="12" width="168" height="72" fill="#C89A54"/></g><g class="m"><rect x="384" y="12" width="168" height="72" fill="#3F5B8F"/></g><g class="m"><rect x="576" y="12" width="168" height="72" fill="#5E7B5A"/></g><g class="m"><rect x="768" y="12" width="168" height="72" fill="#D9D4C7"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="none" stroke="#B5553A" stroke-width="5"><path class="m d" pathLength="1" d="M22 6 H90 L112 28 V68 L90 90 H22 L0 68 V28 Z"/><path class="m d" pathLength="1" d="M150 6 H218 L240 28 V68 L218 90 H150 L128 68 V28 Z"/><path class="m d" pathLength="1" d="M278 6 H346 L368 28 V68 L346 90 H278 L256 68 V28 Z"/><path class="m d" pathLength="1" d="M406 6 H474 L496 28 V68 L474 90 H406 L384 68 V28 Z"/><path class="m d" pathLength="1" d="M534 6 H602 L624 28 V68 L602 90 H534 L512 68 V28 Z"/></g><g class="m"><path d="M662 6 H730 L752 28 V68 L730 90 H662 L640 68 V28 Z" fill="#B5553A"/></g><g class="m"><path d="M790 6 H858 L880 28 V68 L858 90 H790 L768 68 V28 Z" fill="#C9A24E"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="#3F5B8F">`+Array.from({length:9},(_,i)=>`<g class="m f"><rect x="${i*44}" y="0" width="18" height="96"/></g>`).join("")+`</g><g class="m"><rect x="440" y="18" width="110" height="60" fill="#B3362B"/></g><g class="m"><rect x="568" y="18" width="110" height="60" fill="#E3B23C"/></g><g class="m"><rect x="696" y="18" width="110" height="60" fill="#3F5B8F"/></g><g class="m"><rect x="824" y="18" width="110" height="60" fill="#5E7B5A"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g class="m"><circle cx="48" cy="48" r="46" fill="#D03A2E"/></g><g class="m"><path d="M130 94 L190 2 L250 94 Z" fill="#F2C319"/></g><g class="m"><rect x="284" y="2" width="92" height="92" fill="#1F56A0"/></g><g class="m"><path d="M420 14 H936 M420 48 H936 M420 82 H936" stroke="#2a2520" stroke-width="5"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="none" stroke="#6B7075" stroke-width="5" stroke-linejoin="round"><path class="m d" pathLength="1" d="M0 90 H560"/><path class="m d" pathLength="1" d="M0 6 H560"/><path class="m d" pathLength="1" d="M0 90 L56 6 L112 90 L168 6 L224 90 L280 6 L336 90 L392 6 L448 90 L504 6 L560 90"/></g><g class="m"><rect x="608" y="4" width="328" height="16" fill="#2F6DB5"/></g><g class="m"><rect x="608" y="28" width="328" height="16" fill="#3E9B5B"/></g><g class="m"><rect x="608" y="52" width="328" height="16" fill="#F2C319"/></g><g class="m"><rect x="608" y="76" width="328" height="16" fill="#D7262B"/></g></svg>`];
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const cl=x=>Math.max(0,Math.min(1,x)), eo=x=>1-Math.pow(1-cl(x),3), ei=x=>Math.pow(cl(x),3), sm=x=>{x=cl(x);return x*x*(3-2*x)};
+const back=x=>{x=cl(x);const c1=1.2,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+// 主題頁
+const lv=$("#levels");
+L.forEach(([img,acc,bg,ink,t,sub,why,dept,job],i)=>{
+  const two=t.includes("|"), lines=t.split("|").map(l=>[...l].map(c=>`<span>${c===" "?"&nbsp;":c}</span>`).join("")).join("<br>");
+  lv.insertAdjacentHTML("beforeend",`<div class="sc p" id="L${i}" style="--acc:${acc};--bg:${bg};--ink:${ink};background:${bg}"><div class="ct">
+  <canvas class="img" width="1080" height="1920"></canvas><div class="fade"></div><canvas class="sheet" width="1080" height="1920"></canvas>
+  <div class="code r">2026</div><div class="ev r">成大一日大學生<b>建築與設計類</b></div>
+  <div class="txt"><div class="motif">${MOTIF[i]}</div><div class="bar"></div><div class="title${two?" s":""}">${lines}</div>
+  <div class="sub r">${sub}</div><div class="why r">${why}</div>
+  <div class="bill r"><div>${dept}</div><div><span>職涯探索</span>　${job}</div></div></div></div>
+  <canvas class="wipe" width="1080" height="1920"></canvas></div>`);
+});
+L.forEach(()=>$("#s0 .cards").insertAdjacentHTML("beforeend",`<div class="card"><canvas width="540" height="810"></canvas></div>`));
+L.forEach((_,i)=>$("#s1 .mts").insertAdjacentHTML("beforeend",`<div class="mt" style="top:${1010+i*128}px">${MOTIF[i]}</div>`));
+L.forEach((l,i)=>$("#s8 .strips").insertAdjacentHTML("beforeend",`<div class="strip" style="left:${72+i*(206+26)/1}px;--c:${l[1]}"><canvas width="412" height="1400"></canvas><i></i></div>`));
+$$("#s8 .strip").forEach((s,i)=>s.style.left=(72+i*182.5)+"px");
+$$("#s8 .strip").forEach(s=>s.style.width="164px");
+$$("#s8 .strip canvas").forEach(c=>c.style.width="164px");
+
+const loadImg=u=>new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.src=u});
+const pix=im=>{const c=document.createElement("canvas");c.width=1080;c.height=1620;const g=c.getContext("2d");g.drawImage(im,0,0,1080,1620);return g.getImageData(0,0,1080,1620).data};
+let IM,LINES,ORD,PAINT,PAPER;
+function paperData(){const c=document.createElement("canvas");c.width=1080;c.height=1920;const g=c.getContext("2d");g.fillStyle="#f9f6f0";g.fillRect(0,0,1080,1920);g.strokeStyle="rgba(42,36,32,.05)";g.lineWidth=1;for(let x=27;x<1080;x+=54){g.beginPath();g.moveTo(x+.5,0);g.lineTo(x+.5,1920);g.stroke()}for(let y=27;y<1920;y+=54){g.beginPath();g.moveTo(0,y+.5);g.lineTo(1080,y+.5);g.stroke()}return g.getImageData(0,0,1080,1920)}
+// 描圖紙：kl 線稿進度、kp 上色進度、lineA 線稿濃度；OY＝圖的第 0 列在畫面 -OY
+function drawSheet(i,cv,kl,kp,lineA,OY,rows=1920){
+  const g=cv.getContext("2d"), out=g.createImageData(1080,rows), o=out.data, pp=PAPER.data, ln=LINES[i], od=ORD[i];
+  for(let y=0;y<rows;y++){ const yi=y+OY, inImg=yi>=0&&yi<1620;
+   for(let x=0;x<1080;x++){ const j=(y*1080+x)*4; let pa;
+    if(inImg){ const q=(yi*1080+x)*4; pa=1-cl((kp-PAINT[q]/255+.035)/.07); } else pa=1-cl((kp-.92)/.08);
+    pa=pa*pa*(3-2*pa); const wet=(inImg&&kp>0&&kp<1)?(1-Math.abs(pa*2-1))*.22:0;
+    let r=pp[j]*(1-wet)+0x6a*wet,gg=pp[j+1]*(1-wet)+0x55*wet,b=pp[j+2]*(1-wet)+0x40*wet,al=pa+wet*(1-pa);
+    if(inImg){ const q=(yi*1080+x)*4, la=ln[q+3]/255*lineA*(od[q]/254<=kl?1:0); if(la>0){ r=r*(1-la)+0x2a*la; gg=gg*(1-la)+0x24*la; b=b*(1-la)+0x20*la; al=al+la*(1-al);} }
+    o[j]=r;o[j+1]=gg;o[j+2]=b;o[j+3]=al*255; } }
+  g.putImageData(out,0,0);
+}
+// ---------- 時間軸（秒） ----------
+const SEG=6.4, T={s0:0,s1:5.5,L:[11,17.4,23.8,30.2,36.6],s7:43,s8:48.5,s9:53}, TOTAL=60, IN=.8;
+// 每次換場的手法（都不一樣）：T 尺橫掃、描圖紙推上、藍圖格、遮陽百葉、鉛筆線框描邊、樓板堆疊、時間軸線、剖面斜線、描圖紙落下
+const WIPE={s1:"tsq",L0:"push",L1:"grid",L2:"louver",L3:"frame",L4:"slab",s7:"line",s8:"hatch",s9:"drop"};
+window.__PENCIL=[T.s1,...T.L,T.s7,T.s8,T.s9].map(a=>+(a-IN).toFixed(2));
+const OFF=document.createElement("canvas");OFF.width=1080;OFF.height=1920;
+function bgCanvas(id){ // 該幕的底（紙）畫到 OFF
+  const g=OFF.getContext("2d");
+  if(id==="s7"){ g.fillStyle="#e8ecf1"; g.fillRect(0,0,1080,1920); g.strokeStyle="rgba(28,42,68,.06)"; g.lineWidth=1; for(let x=27;x<1080;x+=54){g.beginPath();g.moveTo(x+.5,0);g.lineTo(x+.5,1920);g.stroke()} for(let y=27;y<1920;y+=54){g.beginPath();g.moveTo(0,y+.5);g.lineTo(1080,y+.5);g.stroke()} }
+  else g.putImageData(PAPER,0,0);
+}
+const INK="rgba(42,36,32,.75)";
+function wipe(cv,kind,e){ // e 0..1：新的一張紙怎麼蓋上來
+  const g=cv.getContext("2d"); g.clearRect(0,0,1080,1920); g.save(); g.strokeStyle=INK; g.lineWidth=2;
+  if(kind==="push"||kind==="drop"){ const s=sm(e), y=(kind==="push"?1:-1)*(1-s)*1920; g.drawImage(OFF,0,y); g.beginPath(); const ey=kind==="push"?y:y+1920; g.moveTo(0,ey);g.lineTo(1080,ey); g.stroke(); g.fillStyle="rgba(40,30,20,.08)"; g.fillRect(0,kind==="push"?y-18:ey,1080,18); }
+  else if(kind==="tsq"){ const y=sm(e)*1920; g.beginPath(); g.rect(0,0,1080,y); g.clip(); g.drawImage(OFF,0,0); g.restore(); g.save();
+    g.fillStyle="#2a2420"; g.globalAlpha=.88; g.fillRect(-10,y-6,1100,26); g.globalAlpha=1; g.strokeStyle="#f9f6f0"; g.lineWidth=2; for(let x=20;x<1080;x+=27){g.beginPath();g.moveTo(x,y-6);g.lineTo(x,y+(x%135===2?10:2));g.stroke();} }
+  else if(kind==="grid"){ const C=135; for(let r=0;r<15;r++)for(let c=0;c<8;c++){ const d=(r+c)/21, k=eo((e-d*.62)/.38); if(k<=0)continue; const w=C*k; g.drawImage(OFF,c*C+(C-w)/2,r*C+(C-w)/2,w,w,c*C+(C-w)/2,r*C+(C-w)/2,w,w);
+      if(k<1){ g.strokeStyle="rgba(63,91,143,.7)"; g.strokeRect(c*C+(C-w)/2+.5,r*C+(C-w)/2+.5,w,w);} } }
+  else if(kind==="louver"){ const H=96; for(let j=0;j<20;j++){ const k=sm((e-j*.025)/.52); if(k<=0)continue; const h=H*k, y=j*H+(H-h)/2; g.drawImage(OFF,0,y,1080,h,0,y,1080,h); if(k<1){g.beginPath();g.moveTo(0,y);g.lineTo(1080,y);g.moveTo(0,y+h);g.lineTo(1080,y+h);g.stroke();} } }
+  else if(kind==="frame"){ const k1=cl(e/.5), per=2*(960+1800), len=per*k1; g.beginPath(); const pts=[[60,60],[1020,60],[1020,1860],[60,1860],[60,60]]; let left=len; g.moveTo(60,60);
+    for(let j=1;j<pts.length&&left>0;j++){ const [x0,y0]=pts[j-1],[x1,y1]=pts[j], sl=Math.hypot(x1-x0,y1-y0), f=Math.min(1,left/sl); g.lineTo(x0+(x1-x0)*f,y0+(y1-y0)*f); left-=sl; } g.lineWidth=3; g.stroke();
+    const k2=sm((e-.45)/.55); if(k2>0){ const h=1920*k2; g.drawImage(OFF,0,0,1080,h,0,0,1080,h); g.beginPath(); g.moveTo(0,h); g.lineTo(1080,h); g.stroke(); } }
+  else if(kind==="slab"){ const H=160; for(let k=0;k<12;k++){ const j=11-k, p=eo((e-k*.05)/.45); if(p<=0)continue; const y=j*H-(1-p)*260; g.drawImage(OFF,0,j*H,1080,H,0,y,1080,H); g.beginPath(); g.moveTo(0,y+.5); g.lineTo(1080,y+.5); g.stroke(); } }
+  else if(kind==="line"){ const k1=eo(e/.45); g.lineWidth=3; g.strokeStyle="#1c2a44"; const k2=sm((e-.25)/.75); if(k2>0){ const x0=60-60*k2, x1=60+1020*k2; g.drawImage(OFF,x0,0,x1-x0,1920,x0,0,x1-x0,1920); g.beginPath(); g.moveTo(x1,0); g.lineTo(x1,1920); g.stroke(); } g.beginPath(); g.moveTo(60,0); g.lineTo(60,1920*k1); g.stroke(); }
+  else if(kind==="hatch"){ const W=80; g.beginPath(); for(let j=-30;j<30;j++){ const k=sm((e-(j+30)/60*.5)/.5); if(k<=0)continue; const x=j*W+960, w=W*k; g.moveTo(x,0); g.lineTo(x+w,0); g.lineTo(x+w-1920*.5,1920); g.lineTo(x-1920*.5,1920); g.closePath(); } g.save(); g.clip(); g.drawImage(OFF,0,0); g.restore(); }
+  g.restore();
+}
+// 共用：一幕的顯示與換場
+function scene(el,id,a,end,t,body){ // t 是全片時間
+  const lt=t-a; const vis=t>=a-IN&&t<end; el.style.visibility=vis?"visible":"hidden"; el.style.display=vis?"block":"none"; if(!vis) return;
+  const ct=$(".ct",el), wp=$(".wipe",el);
+  if(lt<0&&WIPE[id]){ ct.style.visibility="hidden"; wp.style.visibility="visible"; bgCanvas(id); if(id[0]==="L") drawSheet(+id[1],OFF,0,0,1,0); wipe(wp,WIPE[id],(lt+IN)/IN); return; }
+  ct.style.visibility="visible"; wp.style.visibility="hidden"; body(lt);
+}
+const fadeUp=(el,k,d=24)=>{el.style.opacity=k; el.style.transform=`translateY(${(1-k)*d}px)`};
+function tbDraw(svg,t,step=.9,gap=.35){ $$("path",svg).forEach((pa,j)=>{pa.style.strokeDasharray="1";pa.style.strokeDashoffset=1-eo((t-j*gap)/step);}); }
+function mot(root,t0,t){ $$(".m",root).forEach((el,j)=>{ const k=eo((t-t0-j*.14)/.7);
+  if(el.classList.contains("d")){el.style.strokeDasharray="1";el.style.strokeDashoffset=1-k;el.style.opacity=k>0?1:0;}
+  else{el.style.opacity=k;el.style.transform=el.classList.contains("f")?`scaleY(${k})`:`translateY(${(1-k)*-22}px) scale(${.85+.15*k})`;} }); }
+function renderOrg(t){
+  const cs=$("#org .cs svg"); $(".dot",cs).style.transform=`scale(${back((t-.1)/.5)})`;
+  const ring=$(".ring",cs); ring.style.strokeDasharray="1"; ring.style.strokeDashoffset=1-eo((t-.3)/1.1);
+  $(".head",cs).style.transform=`scale(${back((t-1.2)/.5)})`;
+  const nk=$("#org .nk svg"), kn=eo((t-.4)/.6); $(".seal",nk).style.transform=`scale(${(1.5-.5*kn)*kn}) rotate(${-8+8*kn}deg)`;
+  const emb=$(".emb",nk), ke=eo((t-.8)/1.0); emb.style.strokeDasharray="1"; emb.style.strokeDashoffset=1-ke; emb.style.strokeOpacity=ke>0?1:0; emb.style.fillOpacity=eo((t-1.5)/.5);
+  const sw=eo((t-2.0)/.5); $$("#org .lg img").forEach(im=>im.style.opacity=sw); $$("#org .lg svg").forEach(s=>s.style.opacity=1-sw);
+  $$("#org span").forEach((s,j)=>{const k=eo((t-.5-j*.3)/.7); s.style.opacity=k;});
+  $("#org").style.setProperty("--ln",eo(t/1.2));
+}
+const FX=[-300,-150,0,150,300], FR=[-12,-6,0,6,12], ORDER=[0,4,1,3,2];
+function r0(t){
+  $$("#s0 .card").forEach((c,i)=>{ const a=ORDER.indexOf(i)*.18, k=back((t-a)/1.3);
+    c.style.transform=`translate(${FX[i]*k}px,${-(1-k)*900+Math.abs(FX[i])*.18}px) rotate(${FR[i]*k}deg)`; c.style.zIndex=10-Math.abs(i-2); c.style.opacity=t>a?1:0;
+    if(t>a){ const cv=$("canvas",c), g=cv.getContext("2d"), kl=cl((t-a-.2)/2.4), kp=sm((t-a-1.6)/1.8), la=1-eo((t-a-3.0)/1.0);
+      g.drawImage(IM[i],0,0,540,810); if(kp<1||la>0){ drawSheet(i,CARD,kl,kp,la,0,1620); g.drawImage(CARD,0,0,1080,1620,0,0,540,810);} } });
+  $("#s0 .rule").style.transform=`scaleX(${eo((t-1.2)/.8)})`;
+  fadeUp($("#s0 .slg"),eo((t-1.5)/1.0),30);
+}
+function r1(t){ fadeUp($("#s1 .a"),eo((t-.2)/.8)); fadeUp($("#s1 .b"),eo((t-.6)/.9),30); $$("#s1 .mt").forEach((m,i)=>mot(m,1.4+i*.3,t)); }
+function rL(i,t){
+  const p=$("#L"+i), l=L[i], offY=Math.max(-620,Math.min(0,470-l[9]*1620)), OY=-offY;
+  // 主圖：線稿與上色結束後，鏡頭才慢慢推近一點
+  const s=1+.035*sm((t-4.2)/2.6), cv=$(".img",p), g=cv.getContext("2d"); g.fillStyle=l[2]; g.fillRect(0,0,1080,1920);
+  g.save(); g.translate(540,470); g.scale(s,s); g.translate(-540,-470); g.drawImage(IM[i],0,offY,1080,1620); g.restore();
+  const sh=$(".sheet",p), kl=cl((t+.1)/2.4), kp=sm((t-1.9)/1.8), la=1-eo((t-3.1)/1.2);
+  if(t<4.4){ sh.style.visibility="visible"; drawSheet(i,sh,kl,kp,la,OY); } else sh.style.visibility="hidden";
+  const hd=eo((t-2.6)/.9); $(".code",p).style.opacity=hd; $(".ev",p).style.opacity=hd;
+  $(".bar",p).style.transform=`scaleX(${eo((t-.6)/.8)})`;
+  $$(".title span",p).forEach((s,j)=>{const k=eo((t-.8-j*.08)/.8); s.style.opacity=k; s.style.transform=`translateY(${(1-k)*40}px)`;});
+  fadeUp($(".sub",p),eo((t-1.5)/.8)); fadeUp($(".why",p),eo((t-1.9)/.9));
+  const bl=$(".bill",p); bl.style.setProperty("--ln",eo((t-2.3)/1.0)); bl.style.opacity=eo((t-2.4)/.8);
+  mot($(".motif",p),3.3,t);
+}
+function r7(t){ const s=$("#s7"); tbDraw($(".tl",s),t-.1,1.6);
+  const hd=$(".hd",s); fadeUp(hd,eo((t-.1)/.7)); hd.style.setProperty("--ln",eo((t-.3)/.9));
+  const bg=$$(".big",s), it=$$(".it",s);
+  fadeUp(bg[0],eo((t-.3)/.7),30); fadeUp(it[0],eo((t-.6)/.7)); fadeUp(it[1],eo((t-.8)/.7));
+  fadeUp(bg[1],eo((t-1.2)/.7),30); fadeUp(it[2],eo((t-1.5)/.7)); fadeUp(it[3],eo((t-1.7)/.7)); fadeUp(it[4],eo((t-1.9)/.7));
+  const dt=$(".dt",s); fadeUp(dt,eo((t-2.2)/.8)); dt.style.setProperty("--ln",eo((t-2.1)/.9));
+}
+function r8(t){ $$("#s8 .strip").forEach((st,i)=>{ const k=eo((t-.05-i*.12)/.9); st.style.clipPath=`inset(${(1-k)*100}% 0 0 0)`;
+    const cv=$("canvas",st); if(!cv.done){ const g=cv.getContext("2d"), v=L[i][9], sx=0, sy=Math.max(0,Math.min(1620-1400*1080/412*0+0,0)); const srcW=1080*.42, srcH=srcW*1400/412, cx=540, cy=Math.max(srcH/2,Math.min(1620-srcH/2,v*1620)); g.drawImage(IM[i],cx-srcW/2,cy-srcH/2,srcW,srcH,0,0,412,1400); cv.done=1; } });
+  fadeUp($("#s8 .idea"),eo((t-.8)/.9),30); $("#s8 .rule").style.transform=`scaleX(${eo((t-1.3)/.8)})`;
+  fadeUp($("#s8 .tags"),eo((t-1.5)/.8)); fadeUp($("#s8 .fut"),eo((t-1.9)/.9));
+}
+function r9(t){ const s=$("#s9"); tbDraw($(".tb",s),t-.05);
+  fadeUp($(".k",s),eo((t-.3)/.8)); fadeUp($("h1",s),eo((t-.4)/.9),30); fadeUp($(".slg",s),eo((t-.8)/.8));
+  fadeUp($(".info",s),eo((t-1.1)/.9)); const q=$(".qr",s); q.style.opacity=eo((t-1.4)/.8); q.style.transform=`scale(${.94+.06*eo((t-1.4)/.8)})`;
+}
+const CARD=document.createElement("canvas");CARD.width=1080;CARD.height=1620;
+window.__render=function(t){
+  renderOrg(t);
+  scene($("#s0"),"s0",0,T.s1,t,r0);
+  scene($("#s1"),"s1",T.s1,T.L[0],t,r1);
+  L.forEach((_,i)=>scene($("#L"+i),"L"+i,T.L[i],i<4?T.L[i+1]:T.s7,t,lt=>rL(i,lt)));
+  scene($("#s7"),"s7",T.s7,T.s8,t,r7);
+  scene($("#s8"),"s8",T.s8,T.s9,t,r8);
+  scene($("#s9"),"s9",T.s9,TOTAL+1,t,r9);
+};
+window.__TOTAL=TOTAL;
+(async()=>{
+  PAPER=paperData();
+  IM=await Promise.all(L.map(l=>loadImg(`img/promo/${l[0]}.jpg`)));
+  LINES=await Promise.all(L.map(l=>loadImg(`img/promo/${l[0]}_lines.png`).then(pix)));
+  ORD=await Promise.all(L.map(l=>loadImg(`img/promo/${l[0]}_order.png`).then(pix)));
+  PAINT=pix(await loadImg("img/promo/paint_order.png"));
+  await Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>i.onload=i.onerror=r)));
+  await document.fonts.load('900 100px "NSerif"'); await document.fonts.load('500 40px "NSans"'); await document.fonts.ready;
+  window.__ready=true;
+  if(!location.search.includes("rec=1")){let s=performance.now();(function f(){__render(((performance.now()-s)/1000)%TOTAL);requestAnimationFrame(f)})()}
+})();
+</script></body></html>
