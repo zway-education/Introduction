@@ -20,3 +20,6 @@ kids2/rec_*.log
 kids2/m*.jpg
 kids2/chk.jpg
 kids/qa/
+kids2/qa/
+kids2/pencil_used.json
+*.tmp.mp4

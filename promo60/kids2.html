@@ -231,7 +231,7 @@ function rL(i,t){ const p=$("#L"+i); drawBg($(".bg",p),IM[i],Math.max(0,t+.8),7.
 function r7(t){ const s=$("#s7"); drawBg($(".bg",s),IM[4],t+2,8,{blur:12,veil:.3});
   fadeUp($(".hd",s),eo((t-.1)/.6)); panelIn($(".am",s),.3,t); panelIn($(".pm",s),1.0,t);
   $$(".it",s).forEach((el,j)=>fadeUp(el,eo((t-[.6,.8,1.3,1.5,1.7][j])/.6))); fadeUp($(".dt",s),eo((t-2.1)/.7)); }
-function r8(t){ const s=$("#s8"); drawSlices($(".bg",s),t); panelIn($(".pn",s),.5,t);
+function r8(t){ const s=$("#s8"); drawSlices($(".bg",s),t+1.2); panelIn($(".pn",s),.5,t);
   fadeUp($(".idea",s),eo((t-.8)/.8)); fadeUp($(".tags",s),eo((t-1.4)/.7)); fadeUp($(".fut",s),eo((t-1.8)/.8)); }
 function r9(t){ const s=$("#s9"); drawBg($(".bg",s),IM[0],t+4,11,{blur:14,veil:.35}); panelIn($(".pn",s),.1,t);
   fadeUp($(".slg",s),eo((t-.7)/.7)); fadeUp($(".info",s),eo((t-1.0)/.8)); const q=$(".qr",s); q.style.opacity=eo((t-1.3)/.7); }
