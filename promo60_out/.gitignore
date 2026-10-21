@@ -14,3 +14,9 @@ kids/kf_*/
 kids/rec_*.log
 kids/m*.jpg
 kids/chk.jpg
+kids2/frames_*/
+kids2/kf_*/
+kids2/rec_*.log
+kids2/m*.jpg
+kids2/chk.jpg
+kids/qa/

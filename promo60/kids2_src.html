@@ -1,0 +1,252 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<title>成大一日大學生 60 秒宣傳片（孩子版 C／D）</title>
+<style>
+@font-face{font-family:"NSerif";src:url("fonts/NotoSerifTC-VF.ttf");font-weight:100 900}
+@font-face{font-family:"NSans";src:url("fonts/NotoSansTC-VF.ttf");font-weight:100 900}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#f9f6f0;font-family:"NSans";color:#2a2420}
+#stage{position:absolute;inset:0;overflow:hidden}
+.sc{position:absolute;inset:0;overflow:hidden;display:none;background:#f9f6f0}
+.bg{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.grain{position:absolute;inset:0;background:url(img/promo/grain.jpg);background-size:512px;mix-blend-mode:multiply;opacity:.05;pointer-events:none;z-index:960}
+.frame{position:absolute;inset:34px;border:1.5px solid rgba(255,255,255,.55);pointer-events:none;z-index:950}
+.r{opacity:0}
+.m{transform-box:fill-box;transform-origin:center}
+/* ---- 下方兩單位 LOGO（全片都在） ---- */
+#org{position:absolute;left:72px;right:72px;top:1716px;height:112px;z-index:55;display:flex;justify-content:center;align-items:center;gap:16px;font:600 28px/1 "NSans";letter-spacing:.06em;color:#2a2420}
+#org::before{content:"";position:absolute;left:0;right:0;top:0;height:1.5px;background:rgba(42,36,32,.4);transform-origin:0 50%;transform:scaleX(var(--ln,0))}
+#org .lg{position:relative;width:76px;height:76px;flex:none}
+#org .lg svg,#org .lg img{position:absolute;inset:0;width:76px;height:76px;overflow:visible}
+#org .lg img{opacity:0}
+#org .lg .dot,#org .lg .head,#org .lg .seal{transform-box:fill-box;transform-origin:center}
+#org span{margin-right:34px;opacity:0;white-space:nowrap}
+#org span:last-child{margin-right:0}
+
+#org{z-index:900;left:48px;right:48px;top:1716px;height:118px;background:rgba(249,246,240,.94);border-radius:8px}
+#org::before{display:none}
+/* ---- 說明牌／介面板（兩種風格） ---- */
+.pn{position:absolute;left:60px;right:60px;background:rgba(249,246,240,.95);color:#2a2420;box-sizing:border-box;padding:40px 46px}
+.C .pn{padding-bottom:58px !important;border:2.5px solid #2a2420;box-shadow:14px 16px 0 rgba(42,36,32,.22)}
+.C .pn::after{content:"";position:absolute;right:36px;bottom:22px;width:180px;height:10px;background:linear-gradient(90deg,#2a2420 0 25%,transparent 25% 50%,#2a2420 50% 75%,transparent 75%);border:1.5px solid #2a2420}
+.D .pn{background:rgba(249,246,240,.88);border:1.5px solid rgba(31,86,160,.45)}
+.D .pn::before,.D .pn::after{content:"";position:absolute;width:56px;height:56px;border:6px solid var(--acc,#1F56A0)}
+.D .pn::before{left:-10px;top:-10px;border-right:none;border-bottom:none}
+.D .pn::after{right:-10px;bottom:-10px;border-left:none;border-top:none}
+.tag{position:absolute;left:60px;top:84px;padding:12px 26px;font:700 30px/1 "NSans";letter-spacing:.12em;background:rgba(249,246,240,.94);color:#2a2420}
+.C .tag{border:2px solid #2a2420}
+.D .tag{border-left:8px solid #1F56A0}
+/* 主題 */
+.p .motif{position:absolute;left:60px;right:60px;top:1060px;height:72px}
+.p .motif svg{width:100%;height:100%;display:block;overflow:visible}
+.p .pn{top:1160px;padding:34px 42px 30px}
+.p .title{font:900 104px/1.1 "NSerif";letter-spacing:.03em;white-space:nowrap}
+.p .title.s{font-size:84px}
+.p .title span{display:inline-block}
+.C .p .title{padding-left:30px;border-left:16px solid var(--acc)}
+.D .p .title{color:var(--acc)}
+.p .sub{margin-top:18px;font:700 46px/1.3 "NSans";color:var(--acc)}
+.p .why{margin-top:8px;font:500 38px/1.45 "NSans"}
+.p .bill{margin-top:16px;padding-top:12px;border-top:1.5px solid rgba(42,36,32,.4);font:600 28px/1.45 "NSans";letter-spacing:.04em}
+.p .bill span{font-weight:400;opacity:.75}
+/* 封面 */
+#s0 .pn{top:1080px;text-align:center;padding:44px 30px 52px}
+#s0 .k{font:700 34px/1 "NSans";letter-spacing:.4em;color:#B3362B}
+#s0 h1{margin:24px 0 0;font:900 128px/1 "NSerif";letter-spacing:.03em;white-space:nowrap}
+#s0 .slg{margin-top:30px;font:700 60px/1.42 "NSerif";letter-spacing:.06em}
+/* 能力句 */
+#s1 .pn{top:300px;bottom:330px}
+#s1 .a{font:600 46px/1.4 "NSans";color:#5a4a3a}
+#s1 .b{margin-top:22px;font:900 92px/1.22 "NSerif";white-space:nowrap}
+#s1 .b em{font-style:normal;color:#B3362B}
+#s1 .b small{display:block;font-size:72px}
+#s1 .mt{position:relative;height:84px;margin-top:34px}
+#s1 .mt svg{width:100%;height:100%;display:block;overflow:visible}
+/* 一天 */
+#s7 .pn{padding:30px 40px}
+#s7 .hd{position:absolute;left:60px;right:60px;top:150px;text-align:center;padding:22px;font:700 52px/1.2 "NSerif";letter-spacing:.06em;background:rgba(249,246,240,.95);color:#1c2a44}
+.C #s7 .hd{border:2.5px solid #2a2420}
+.D #s7 .hd{border-bottom:6px solid #1F56A0}
+#s7 .big{font:900 150px/1 "NSerif";color:#1c2a44}
+#s7 .it{display:flex;align-items:center;gap:24px;margin-top:22px;font:900 66px/1 "NSerif";white-space:nowrap;color:#1c2a44}
+#s7 .it b{width:18px;height:68px;background:var(--c);flex:none}
+#s7 .dt{position:absolute;left:60px;right:60px;top:1500px;padding:20px 30px;font:600 40px/1.5 "NSans";background:rgba(249,246,240,.95);color:#1c2a44}
+/* 價值 */
+#s8 .pn{top:900px;text-align:center;padding:46px 20px 54px}
+#s8 .idea{font:900 64px/1 "NSerif";white-space:nowrap}
+#s8 .tags{margin-top:34px;font:500 34px/1 "NSans";letter-spacing:.16em;color:#4a3e32}
+#s8 .tags i{font-style:normal;font:700 28px/1 "NSerif";color:#B3362B;margin:0 6px 0 2px}
+#s8 .tags b{font-weight:400;color:#b5aa9a;margin:0 12px}
+#s8 .fut{margin-top:40px;font:700 58px/1 "NSerif";letter-spacing:.08em}
+/* 報名卡 */
+#s9 .pn{top:150px;bottom:290px;text-align:center;padding:50px 30px}
+#s9 .k{font:700 32px/1 "NSans";letter-spacing:.4em;color:#B3362B}
+#s9 h1{margin:22px 0 0;font:900 124px/1 "NSerif";white-space:nowrap}
+#s9 .slg{margin-top:26px;font:700 46px/1 "NSerif";letter-spacing:.05em}
+#s9 .info{margin-top:42px;font:700 44px/1.6 "NSans"}
+#s9 .info small{display:block;font:500 32px/1.7 "NSans";color:#3e342a}
+#s9 .qr{width:300px;height:300px;margin:34px auto 0;padding:14px;background:#fff;border:1.5px solid rgba(42,36,32,.4)}
+#s9 .qr img{width:100%;height:100%;display:block;image-rendering:pixelated}
+/* 換場效果層 */
+#fx{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:800;pointer-events:none;overflow:visible}
+</style></head><body>
+<div id="stage">
+<div class="sc" id="s0"><canvas class="bg" width="1080" height="1920"></canvas><div class="tag r">成大一日大學生・建築與設計類</div>
+ <div class="pn"><div class="k">2026・建築與設計類</div><h1>成大一日大學生</h1><div class="slg r">從探索瞭解學系<br>找到學習的動機</div></div></div>
+<div class="sc" id="s1"><canvas class="bg" width="1080" height="1920"></canvas>
+ <div class="pn"><div class="a r">未來需要的，不只是單一能力，</div><div class="b r">而是<em>跨域整合</em><small>與<em>解決真實問題</em>的能力。</small></div><div class="mts"></div></div></div>
+<div id="levels"></div>
+<div class="sc" id="s7"><canvas class="bg" width="1080" height="1920"></canvas>
+ <div class="hd r">6 小時沉浸式學職涯任務</div>
+ <div class="pn am" style="top:330px;left:60px;right:300px"><div class="big">上午</div><div class="it" style="--c:#B3362B"><b></b>主題任務啟動</div><div class="it" style="--c:#C2603C"><b></b>成大校園定向探索</div></div>
+ <div class="pn pm" style="top:880px;left:300px;right:60px"><div class="big">下午</div><div class="it" style="--c:#3F5B8F"><b></b>學群探索</div><div class="it" style="--c:#1F56A0"><b></b>任務解鎖</div><div class="it" style="--c:#D7262B"><b></b>成果挑戰</div></div>
+ <div class="dt r">2026年10月25日（日）09:00－16:30<br>國立成功大學／自強校區航太系館</div></div>
+<div class="sc" id="s8"><canvas class="bg" width="1080" height="1920"></canvas>
+ <div class="pn"><div class="idea r">帶著孩子找到目標，適性適所</div>
+ <div class="tags r"><span>合作</span>　<span>溝通</span>　<span>思辨</span>　<span>創造</span><i>4C</i><b>｜</b><span>自我覺察</span><i>SEL</i></div>
+ <div class="fut r">空間・人・社會・更好的未來</div></div></div>
+<div class="sc" id="s9"><canvas class="bg" width="1080" height="1920"></canvas>
+ <div class="pn"><div class="k">2026・建築與設計類</div><h1>成大一日大學生</h1><div class="slg r">從探索瞭解學系，找到學習的動機</div>
+ <div class="info r">2026年10月25日（日）<br>09:00－16:30（08:30 開放報到）<br>國立成功大學／自強校區航太系館<small>對象｜國中、高中學生　費用｜每人每梯次 2,800 元<br>活動洽詢｜07-269-3525</small></div>
+ <div class="qr r"><img src="img/promo/qr_signup.png"></div></div></div>
+<svg id="fx" viewBox="0 0 1080 1920"></svg>
+<div id="org">
+ <div class="lg cs"><svg viewBox="44.5 58.5 440 440"><defs><linearGradient id="gj" gradientUnits="userSpaceOnUse" x1="90" y1="70" x2="440" y2="490"><stop offset="0" stop-color="#C0266F"/><stop offset=".5" stop-color="#E07A74"/><stop offset="1" stop-color="#F6B23E"/></linearGradient></defs>
+  <circle class="dot" cx="263" cy="284" r="47" fill="#F5CF7C"/><circle class="ring" cx="264.5" cy="278.5" r="178.75" fill="none" stroke="url(#gj)" stroke-width="81.5" pathLength="1" transform="rotate(-90 264.5 278.5)"/><circle class="head" cx="264.5" cy="97" r="79" fill="#C0266F"/></svg><img src="img/promo/logo/cseca.png"></div>
+ <span>中華覺知教育關懷協會</span>
+ <div class="lg nk"><svg viewBox="0 0 1431 1430"><circle class="seal" cx="715" cy="714.5" r="715" fill="#981E25"/><path class="emb" pathLength="1" d="__EMB__" fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width="6"/></svg><img src="img/promo/logo/ncku_eitec.png"></div>
+ <span>成大能源產業人才教育中心</span>
+</div>
+
+<div class="frame"></div><div class="grain"></div>
+</div>
+<script>
+const S=new URLSearchParams(location.search).get("s")||"c"; document.body.className=S.toUpperCase();
+const L=[
+["#B3362B","生活問題|行動方案","共同友善的居住空間","使用者的需求，<br>是空間設計的起點。","成大建築學系","建築師・室內設計師・無障礙空間規劃師"],
+["#B5553A","永續城市設計","在有限空間中取捨所需機能","城市規劃需要回應生活需求，<br>也需要在有限資源中取捨。","成大都市計劃學系","都市規劃師・景觀設計師・交通規劃師"],
+["#3F5B8F","跨域議題攻防","永續建築","透過測試改進遮陽設計，<br>兼顧使用舒適與自然採光。","成大建築學系","建築師・綠建築顧問・照明設計師"],
+["#1F56A0","AI 實務與|設計思維","AI 與未來設計","從生活問題提出改造，<br>檢查構想是否回應使用者。","成大工業設計學系","產品設計師・使用者體驗設計師"],
+["#D7262B","團隊合作與|成果發表","做出能自行站立的承重作品","透過合作、測試與修改，<br>把構想變成能承重的作品。","成大建築學系・工業設計學系","建築師・結構工程師・土木工程師・產品設計師"]];
+const MOTIF=[
+`<svg viewBox="0 0 936 96"><g class="m"><rect x="0" y="12" width="168" height="72" fill="#B3362B"/></g><g class="m"><rect x="192" y="12" width="168" height="72" fill="#C89A54"/></g><g class="m"><rect x="384" y="12" width="168" height="72" fill="#3F5B8F"/></g><g class="m"><rect x="576" y="12" width="168" height="72" fill="#5E7B5A"/></g><g class="m"><rect x="768" y="12" width="168" height="72" fill="#D9D4C7"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="none" stroke="#B5553A" stroke-width="5"><path class="m d" pathLength="1" d="M22 6 H90 L112 28 V68 L90 90 H22 L0 68 V28 Z"/><path class="m d" pathLength="1" d="M150 6 H218 L240 28 V68 L218 90 H150 L128 68 V28 Z"/><path class="m d" pathLength="1" d="M278 6 H346 L368 28 V68 L346 90 H278 L256 68 V28 Z"/><path class="m d" pathLength="1" d="M406 6 H474 L496 28 V68 L474 90 H406 L384 68 V28 Z"/><path class="m d" pathLength="1" d="M534 6 H602 L624 28 V68 L602 90 H534 L512 68 V28 Z"/></g><g class="m"><path d="M662 6 H730 L752 28 V68 L730 90 H662 L640 68 V28 Z" fill="#B5553A"/></g><g class="m"><path d="M790 6 H858 L880 28 V68 L858 90 H790 L768 68 V28 Z" fill="#C9A24E"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="#3F5B8F">`+Array.from({length:9},(_,i)=>`<g class="m f"><rect x="${i*44}" y="0" width="18" height="96"/></g>`).join("")+`</g><g class="m"><rect x="440" y="18" width="110" height="60" fill="#B3362B"/></g><g class="m"><rect x="568" y="18" width="110" height="60" fill="#E3B23C"/></g><g class="m"><rect x="696" y="18" width="110" height="60" fill="#3F5B8F"/></g><g class="m"><rect x="824" y="18" width="110" height="60" fill="#5E7B5A"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g class="m"><circle cx="48" cy="48" r="46" fill="#D03A2E"/></g><g class="m"><path d="M130 94 L190 2 L250 94 Z" fill="#F2C319"/></g><g class="m"><rect x="284" y="2" width="92" height="92" fill="#1F56A0"/></g><g class="m"><path d="M420 14 H936 M420 48 H936 M420 82 H936" stroke="#2a2520" stroke-width="5"/></g></svg>`,
+`<svg viewBox="0 0 936 96"><g fill="none" stroke="#6B7075" stroke-width="5" stroke-linejoin="round"><path class="m d" pathLength="1" d="M0 90 H560"/><path class="m d" pathLength="1" d="M0 6 H560"/><path class="m d" pathLength="1" d="M0 90 L56 6 L112 90 L168 6 L224 90 L280 6 L336 90 L392 6 L448 90 L504 6 L560 90"/></g><g class="m"><rect x="608" y="4" width="328" height="16" fill="#2F6DB5"/></g><g class="m"><rect x="608" y="28" width="328" height="16" fill="#3E9B5B"/></g><g class="m"><rect x="608" y="52" width="328" height="16" fill="#F2C319"/></g><g class="m"><rect x="608" y="76" width="328" height="16" fill="#D7262B"/></g></svg>`];
+
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const cl=x=>Math.max(0,Math.min(1,x)), eo=x=>1-Math.pow(1-cl(x),3), sm=x=>{x=cl(x);return x*x*(3-2*x)};
+const back=x=>{x=cl(x);const c1=1.3,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+L.forEach(([acc,t,sub,why,dept,job],i)=>{
+  const two=t.includes("|"), lines=t.split("|").map(l=>[...l].map(c=>`<span>${c===" "?"&nbsp;":c}</span>`).join("")).join("<br>");
+  $("#levels").insertAdjacentHTML("beforeend",`<div class="sc p" id="L${i}" style="--acc:${acc}"><canvas class="bg" width="1080" height="1920"></canvas>
+  <div class="tag r">成大一日大學生・建築與設計類</div><div class="motif">${MOTIF[i]}</div>
+  <div class="pn"><div class="title${two?" s":""}">${lines}</div><div class="sub r">${sub}</div><div class="why r">${why}</div>
+  <div class="bill r"><div>${dept}</div><div><span>職涯探索</span>　${job}</div></div></div></div>`);
+});
+L.forEach((_,i)=>$("#s1 .mts").insertAdjacentHTML("beforeend",`<div class="mt">${MOTIF[i]}</div>`));
+const loadImg=u=>new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.src=u});
+let IM;
+// 整面主圖：鏡頭在畫面上慢慢平移（像在模型／場景裡看）
+function drawBg(cv,im,t,dur,{dir=1,blur=0,veil=0,zoom=1}={}){
+  const g=cv.getContext("2d"), sc=1920/im.height*zoom*(1+.04*sm(t/dur)), w=im.width*sc, h=im.height*sc, room=w-1080;
+  const k=sm(t/dur), x=-(room*(dir>0?.15+.55*k:.7-.55*k)), y=(1920-h)/2;
+  g.save(); g.filter=blur?`blur(${blur}px)`:"none"; g.drawImage(im,x,y,w,h); g.restore();
+  if(veil){ g.fillStyle=`rgba(249,246,240,${veil})`; g.fillRect(0,0,1080,1920); }
+}
+function drawSlices(cv,t){ // 五個主題的畫面並排成五條
+  const g=cv.getContext("2d"); g.fillStyle="#f9f6f0"; g.fillRect(0,0,1080,1920);
+  for(let i=0;i<5;i++){ const k=eo((t-i*.12)/.9), im=IM[i], sc=1920/im.height, w=im.width*sc, x0=i*216;
+    g.save(); g.beginPath(); g.rect(x0,1920*(1-k),216,1920*k); g.clip(); g.drawImage(im,x0+108-w/2,0,w,1920); g.restore();
+    g.fillStyle=L[i][0]; g.fillRect(x0,1920*(1-k),216,10); }
+  g.fillStyle="rgba(249,246,240,.35)"; g.fillRect(0,0,1080,1920);
+}
+// ---------- 時間軸 ----------
+const T={s0:0,s1:5.5,L:[11,17.4,23.8,30.2,36.6],s7:43,s8:48.5,s9:53}, TOTAL=60, IN=.8;
+const ORDER=["s1","L0","L1","L2","L3","L4","s7","s8","s9"];
+window.__PENCIL=[T.s1,...T.L,T.s7,T.s8,T.s9].map(a=>+(a-IN).toFixed(2));
+// C：美工刀沿尺切開，每次角度不同；D：掃描線生成，每次方向不同
+const CUT=[-28,90,0,62,15,-60,118,40,"x"];
+const SCAN=["down","right","iris","up","left","circle","splitV","diag","splitH"];
+const NS="http://www.w3.org/2000/svg", fx=$("#fx");
+function clipCut(el,ang,e,fxg){
+  const k1=eo(e/.35), k2=sm((e-.25)/.75), cx=540, cy=900;
+  const band=(a,w)=>{const r=a*Math.PI/180, dx=Math.cos(r), dy=Math.sin(r), nx=-dy, ny=dx, L=2600;
+    return [[cx-dx*L+nx*w,cy-dy*L+ny*w],[cx+dx*L+nx*w,cy+dy*L+ny*w],[cx+dx*L-nx*w,cy+dy*L-ny*w],[cx-dx*L-nx*w,cy-dy*L-ny*w]];};
+  const angs=ang==="x"?[45,-45]:[ang], w=k2*1500;
+  if(w>0){ const polys=angs.map(a=>band(a,w)); el.style.clipPath=angs.length===1?`polygon(${polys[0].map(p=>p.join("px ")+"px").join(",")})`:`polygon(evenodd,${polys.flat().map(p=>p.join("px ")+"px").join(",")})`;
+    if(angs.length>1){ const r=Math.min(1,k2)*1400; el.style.clipPath=`polygon(${cx}px ${cy-r*1.6}px,${cx+r}px ${cy}px,${cx}px ${cy+r*1.6}px,${cx-r}px ${cy}px)`; } }
+  else el.style.clipPath="polygon(0 0,0 0,0 0)";
+  angs.forEach(a=>{ const r=a*Math.PI/180, dx=Math.cos(r), dy=Math.sin(r), Lh=2600*k1;
+    const ln=document.createElementNS(NS,"line"); ln.setAttribute("x1",cx-dx*Lh); ln.setAttribute("y1",cy-dy*Lh); ln.setAttribute("x2",cx+dx*Lh); ln.setAttribute("y2",cy+dy*Lh);
+    ln.setAttribute("stroke","#2a2420"); ln.setAttribute("stroke-width",k2>0?2:3); ln.setAttribute("stroke-dasharray",k2>0?"0":"14 8"); ln.setAttribute("opacity",1-cl((e-.6)/.4)); fxg.appendChild(ln); });
+}
+function clipScan(el,kind,e,fxg){
+  const s=sm(e), A="#1F56A0"; let cp="", shapes=[];
+  const L=(x1,y1,x2,y2)=>shapes.push(["line",{x1,y1,x2,y2}]);
+  if(kind==="down"){ const y=s*1920; cp=`inset(0 0 ${100-s*100}% 0)`; L(0,y,1080,y); L(0,y-60,1080,y-60); }
+  else if(kind==="up"){ const y=(1-s)*1920; cp=`inset(${(1-s)*100}% 0 0 0)`; L(0,y,1080,y); L(0,y+60,1080,y+60); }
+  else if(kind==="right"){ const x=s*1080; cp=`inset(0 ${100-s*100}% 0 0)`; L(x,0,x,1920); L(x-50,0,x-50,1920); }
+  else if(kind==="left"){ const x=(1-s)*1080; cp=`inset(0 0 0 ${(1-s)*100}%)`; L(x,0,x,1920); L(x+50,0,x+50,1920); }
+  else if(kind==="splitV"){ const w=s*540; cp=`inset(0 ${(540-w)/10.8}% 0 ${(540-w)/10.8}%)`; L(540-w,0,540-w,1920); L(540+w,0,540+w,1920); }
+  else if(kind==="splitH"){ const h=s*960; cp=`inset(${(960-h)/19.2}% 0 ${(960-h)/19.2}% 0)`; L(0,960-h,1080,960-h); L(0,960+h,1080,960+h); }
+  else if(kind==="circle"){ const r=s*1150; cp=`circle(${r}px at 540px 900px)`; shapes.push(["circle",{cx:540,cy:900,r}]); shapes.push(["circle",{cx:540,cy:900,r:Math.max(0,r-40)}]); }
+  else if(kind==="iris"){ const w=s*560, h=s*980; cp=`inset(${(960-h)/19.2}% ${(540-w)/10.8}% ${(960-h)/19.2}% ${(540-w)/10.8}%)`; shapes.push(["rect",{x:540-w,y:960-h,width:2*w,height:2*h}]); }
+  else if(kind==="diag"){ const d=s*3100; cp=`polygon(0 0,${d}px 0,${d-1920*.6}px 1920px,0 1920px)`; L(d,0,d-1152,1920); }
+  el.style.clipPath=e>=1?"none":cp;
+  shapes.forEach(([tag,at],j)=>{ const n=document.createElementNS(NS,tag); for(const k in at) n.setAttribute(k,at[k]); n.setAttribute("fill","none"); n.setAttribute("stroke",A); n.setAttribute("stroke-width",j===0?5:2); n.setAttribute("opacity",(j===0?1:.5)*(1-cl((e-.85)/.15))); fxg.appendChild(n); });
+}
+function scene(id,a,end,t,body){
+  const el=$("#"+id), lt=t-a, vis=t>=a-IN&&t<end; el.style.display=vis?"block":"none"; if(!vis) return;
+  el.style.zIndex=Math.round(a*10)+1; el.style.clipPath="none";
+  const j=ORDER.indexOf(id);
+  if(lt<0&&j>=0){ const e=(lt+IN)/IN; if(S==="c") clipCut(el,CUT[j],e,fx); else clipScan(el,SCAN[j],e,fx); }
+  body(lt);
+}
+const fadeUp=(el,k,d=24)=>{el.style.opacity=k; el.style.transform=`translateY(${(1-k)*d}px)`};
+// 說明牌進場：C 像把牌子放上去；D 像介面從一條線展開
+function panelIn(el,t0,t){ if(S==="c"){ const k=back((t-t0)/.7); el.style.transform=`translateY(${(1-k)*60}px) rotate(${(1-k)*-2}deg)`; el.style.opacity=cl((t-t0)/.25); }
+  else { const k=eo((t-t0)/.55); el.style.transform=`scaleY(${.02+.98*k})`; el.style.opacity=cl((t-t0)/.15); } }
+function mot(root,t0,t){ $$(".m",root).forEach((el,j)=>{ const k=eo((t-t0-j*.12)/.6);
+  if(el.classList.contains("d")){el.style.strokeDasharray="1";el.style.strokeDashoffset=1-k;el.style.opacity=k>0?1:0;}
+  else{el.style.opacity=k;el.style.transform=el.classList.contains("f")?`scaleY(${k})`:`translateY(${(1-k)*-20}px) scale(${.85+.15*k})`;} }); }
+function renderOrg(t){
+  const cs=$("#org .cs svg"); $(".dot",cs).style.transform=`scale(${back((t-.1)/.5)})`;
+  const ring=$(".ring",cs); ring.style.strokeDasharray="1"; ring.style.strokeDashoffset=1-eo((t-.3)/1.1);
+  $(".head",cs).style.transform=`scale(${back((t-1.2)/.5)})`;
+  const nk=$("#org .nk svg"), kn=eo((t-.4)/.6); $(".seal",nk).style.transform=`scale(${(1.5-.5*kn)*kn}) rotate(${-8+8*kn}deg)`;
+  const emb=$(".emb",nk), ke=eo((t-.8)/1.0); emb.style.strokeDasharray="1"; emb.style.strokeDashoffset=1-ke; emb.style.strokeOpacity=ke>0?1:0; emb.style.fillOpacity=eo((t-1.5)/.5);
+  const sw=eo((t-2.0)/.5); $$("#org .lg img").forEach(im=>im.style.opacity=sw); $$("#org .lg svg").forEach(s=>s.style.opacity=1-sw);
+  $$("#org span").forEach((s,j)=>{const k=eo((t-.5-j*.3)/.7); s.style.opacity=k;});
+  $("#org").style.setProperty("--ln",eo(t/1.2));
+}
+
+function r0(t){ const s=$("#s0"); drawBg($(".bg",s),IM[1],t,5.5); $(".pn",s).style.transform="none"; $(".pn",s).style.opacity=1;
+  $(".tag",s).style.opacity=eo((t-.3)/.6); fadeUp($(".slg",s),eo((t-1.2)/.9)); }
+function r1(t){ const s=$("#s1"); drawBg($(".bg",s),IM[2],t+3,9,{blur:10,veil:.25}); panelIn($(".pn",s),0,t);
+  fadeUp($(".a",s),eo((t-.3)/.7)); fadeUp($(".b",s),eo((t-.6)/.8),30); $$(".mt",s).forEach((m,i)=>mot(m,1.4+i*.28,t)); }
+function rL(i,t){ const p=$("#L"+i); drawBg($(".bg",p),IM[i],Math.max(0,t+.8),7.2,{dir:i%2?-1:1});
+  $(".tag",p).style.opacity=eo((t-.2)/.5); panelIn($(".pn",p),.2,t);
+  $$(".title span",p).forEach((s,j)=>{const k=back((t-.5-j*.06)/.6); s.style.opacity=cl((t-.5-j*.06)/.25); s.style.transform=`translateY(${(1-k)*44}px)`;});
+  fadeUp($(".sub",p),eo((t-1.1)/.7)); fadeUp($(".why",p),eo((t-1.5)/.8)); fadeUp($(".bill",p),eo((t-1.9)/.8)); mot($(".motif",p),2.4,t); }
+function r7(t){ const s=$("#s7"); drawBg($(".bg",s),IM[4],t+2,8,{blur:12,veil:.3});
+  fadeUp($(".hd",s),eo((t-.1)/.6)); panelIn($(".am",s),.3,t); panelIn($(".pm",s),1.0,t);
+  $$(".it",s).forEach((el,j)=>fadeUp(el,eo((t-[.6,.8,1.3,1.5,1.7][j])/.6))); fadeUp($(".dt",s),eo((t-2.1)/.7)); }
+function r8(t){ const s=$("#s8"); drawSlices($(".bg",s),t); panelIn($(".pn",s),.5,t);
+  fadeUp($(".idea",s),eo((t-.8)/.8)); fadeUp($(".tags",s),eo((t-1.4)/.7)); fadeUp($(".fut",s),eo((t-1.8)/.8)); }
+function r9(t){ const s=$("#s9"); drawBg($(".bg",s),IM[0],t+4,11,{blur:14,veil:.35}); panelIn($(".pn",s),.1,t);
+  fadeUp($(".slg",s),eo((t-.7)/.7)); fadeUp($(".info",s),eo((t-1.0)/.8)); const q=$(".qr",s); q.style.opacity=eo((t-1.3)/.7); }
+window.__render=function(t){
+  fx.innerHTML=""; renderOrg(t);
+  scene("s0",0,T.s1,t,r0); scene("s1",T.s1,T.L[0],t,r1);
+  L.forEach((_,i)=>scene("L"+i,T.L[i],i<4?T.L[i+1]:T.s7,t,lt=>rL(i,lt)));
+  scene("s7",T.s7,T.s8,t,r7); scene("s8",T.s8,T.s9,t,r8); scene("s9",T.s9,TOTAL+1,t,r9);
+};
+window.__TOTAL=TOTAL;
+(async()=>{
+  IM=await Promise.all(L.map((_,i)=>loadImg(`img/kids/${S}${i+1}.jpg`)));
+  await Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>i.onload=i.onerror=r)));
+  await document.fonts.load('900 100px "NSerif"'); await document.fonts.load('500 40px "NSans"'); await document.fonts.ready;
+  window.__ready=true;
+  if(!location.search.includes("rec=1")){let s=performance.now();(function f(){__render(((performance.now()-s)/1000)%TOTAL);requestAnimationFrame(f)})()}
+})();
+</script></body></html>
