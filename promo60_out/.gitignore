@@ -9,3 +9,8 @@ cool_kf/
 c1.jpg
 rec_*.log
 qa/
+kids/frames_*/
+kids/kf_*/
+kids/rec_*.log
+kids/m*.jpg
+kids/chk.jpg

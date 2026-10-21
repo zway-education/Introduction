@@ -5,7 +5,7 @@ const [out,a,b]=process.argv.slice(2); const FPS=30, N0=Math.round(+a*FPS), N1=M
 fs.mkdirSync(out,{recursive:true});
 const br=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
 const pg=await br.newPage({viewport:{width:1080,height:1920}});
-await pg.goto('http://localhost:8767/promo60.html?rec=1');
+await pg.goto('http://localhost:8767/'+(process.env.PAGE||'promo60')+'.html?rec=1'+(process.env.QS||''));
 await pg.waitForFunction('window.__ready===true',null,{timeout:120000});
 fs.writeFileSync(out+'/../pencil.json',JSON.stringify(await pg.evaluate(()=>window.__PENCIL)));
 // 從頭跑一遍到起點，讓「只畫一次」的元素狀態一致
